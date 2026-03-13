@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máquina.ISP - A Experiência Ultimate B2B (Motion V22)</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Montserrat:wght@500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/eb4cad40f0b3b7b5a55b185a44a4889f?family=Stereo+Gothic+W06+950"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        display: ['"Stereo Gothic W06 950"', 'Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        bg: '#FFFFFF',
+                        surface: '#F5F5F0', /* Premium Gray */
+                        primary: '#09090b', /* Near Black */
+                        muted: '#a1a1aa',
+                        accent: '#1C1C1C',
+                        border: '#E0E0E0',
+                        brandAccent: '#0057FF' /* DS24 Blue Reference */
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Lenis for Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="bg-white text-primary">
+
+    <!-- Navbar (Glassmorphic Light) -->
+    <header
+        class="fixed top-0 left-0 right-0 z-[80] bg-white/40 backdrop-blur-md border-b border-gray-100/50 nav-load transition-all duration-300"
+        id="navbar">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="images/logo%20oficial%20m%C3%A1quina%20isp.png" alt="MÁQUINA.ISP"
+                    class="h-8 md:h-10 w-auto object-contain">
+            </div>
+
+            <!-- Desktop Menu -->
+            <div
+                class="hidden md:flex items-center gap-8 text-xs font-mono font-bold text-gray-400 uppercase tracking-widest">
+                <a href="#diagnostico" class="hover:text-primary transition-colors">Vazamento</a>
+                <a href="#agentes" class="hover:text-primary transition-colors">Agentes</a>
+                <a href="#produto" class="hover:text-primary transition-colors">Tecnologia Base</a>
+                <a href="#fluxo" class="hover:text-primary transition-colors">Engenharia</a>
+            </div>
+
+            <!-- Desktop CTA -->
+            <button class="btn-beam hidden md:flex">
+                <div class="btn-beam-bg"></div>
+                <div class="btn-beam-inner font-mono !uppercase !tracking-widest !text-[10px]">
+                    Falar com especialista
+                </div>
+            </button>
+
+            <!-- Mobile Hamburger -->
+            <button class="md:hidden flex flex-col gap-1.5 relative z-[90]" id="menu-toggle" aria-label="Toggle Menu">
+                <span class="w-6 h-0.5 bg-primary transition-all duration-300 origin-center" id="line1"></span>
+                <span class="w-6 h-0.5 bg-primary transition-all duration-300 origin-center" id="line2"></span>
+                <span class="w-6 h-0.5 bg-primary transition-all duration-300 origin-center" id="line3"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[70] bg-white md:hidden hidden flex-col overflow-hidden">
+        <div class="flex-1 flex flex-col justify-center px-10 gap-8">
+            <nav class="flex flex-col gap-6">
+                <a href="#diagnostico"
+                    class="mobile-menu-link text-2xl font-display font-black text-primary uppercase tracking-tighter">Vazamento</a>
+                <a href="#agentes"
+                    class="mobile-menu-link text-2xl font-display font-black text-primary uppercase tracking-tighter">Agentes</a>
+                <a href="#produto"
+                    class="mobile-menu-link text-2xl font-display font-black text-primary uppercase tracking-tighter">Tecnologia</a>
+                <a href="#fluxo"
+                    class="mobile-menu-link text-2xl font-display font-black text-primary uppercase tracking-tighter">Engenharia</a>
+            </nav>
+
+            <div class="pt-8 border-t border-gray-100">
+                <button class="btn-beam w-full">
+                    <div class="btn-beam-bg"></div>
+                    <div class="btn-beam-inner !justify-center font-mono !uppercase !tracking-widest !text-xs py-5">
+                        Falar com especialista
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sessão 1: Hero (Light Grid Mode) -->
+    <section
+        class="relative min-h-screen flex items-center pt-24 pb-20 overflow-hidden grid-bg-light bg-[#F8FAFC] border-b border-border">
+
+        <!-- Premium Blue Glow Effects -->
+        <div class="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-white pointer-events-none"></div>
+        <div class="glow-point-light w-[600px] h-[600px] -top-1/4 -left-1/4"></div>
+        <div class="glow-point-light w-[500px] h-[500px] top-1/2 -right-1/4"
+            style="background: radial-gradient(circle, #0057FF 0%, transparent 70%); opacity: 0.1;"></div>
+
+        <!-- Floating Gradients - Tied to parallax scrolling -->
+        <div class="absolute inset-0 overflow-hidden opacity-30 pointer-events-none z-0">
+            <div
+                class="parallax-bg absolute top-10 right-10 w-[500px] h-[500px] bg-gradient-to-br from-blue-100/20 to-transparent rounded-full blur-[100px]">
+            </div>
+            <div
+                class="parallax-bg absolute bottom-10 left-10 w-[600px] h-[600px] bg-gradient-to-tr from-[#f4f7d3]/20 to-transparent rounded-full blur-[120px]">
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-3/5 hero-content">
+                <div
+                    class="gsap-reveal inline-flex items-center gap-3 px-4 py-2 rounded-full border border-gray-200 glass-panel mb-8">
+                    <span class="w-2 h-2 rounded-full bg-brandAccent animate-pulse"></span>
+                    <span
+                        class="font-mono font-bold text-[10px] text-gray-500 uppercase tracking-[0.2em] pt-0.5">Operação
+                        Autônoma B2B</span>
+                </div>
+
+                <div class="mb-8" id="hero-title">
+                    <h1
+                        class="font-display text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.05] md:leading-[1.1] tracking-tighter text-primary">
+                        <div class="overflow-hidden"><span
+                                class="block gsap-reveal-text translate-y-full opacity-0">Reduza até 70% do seu</span>
+                        </div>
+                        <div class="overflow-hidden"><span
+                                class="block gsap-reveal-text translate-y-full opacity-0">custo operacional</span>
+                        </div>
+                        <div class="overflow-hidden"><span
+                                class="block gsap-reveal-text text-brandAccent translate-y-full opacity-0">do
+                                provedor.</span></div>
+                    </h1>
+                </div>
+
+                <p class="gsap-reveal text-lg md:text-xl text-gray-500 font-medium mb-8 max-w-xl leading-relaxed">
+                    Provedor no automático, do lead ao contrato. Uma operação com agentes de IA integrados
+                    nativamente ao seu ecossistema.
+                </p>
+
+                <div class="gsap-reveal mb-10 grid grid-cols-2 gap-2 xs:gap-4 max-w-lg">
+                    <div
+                        class="bg-gray-50/50 border border-gray-100 rounded-2xl p-5 flex flex-col gap-2 hover:bg-white hover:shadow-sm transition-all duration-300">
+                        <div class="flex items-center gap-2 mb-1">
+                            <iconify-icon icon="solar:wallet-money-bold-duotone" class="text-green-500"></iconify-icon>
+                        </div>
+                        <span class="font-display font-black text-xl text-green-500 leading-none">-40%</span>
+                        <p class="text-[10px] md:text-xs font-semibold text-gray-700 leading-tight">Inadimplência
+                            <br><span class="text-gray-500 font-medium">e Atrasos</span></p>
+                    </div>
+
+                    <div
+                        class="bg-gray-50/50 border border-gray-100 rounded-2xl p-5 flex flex-col gap-2 hover:bg-white hover:shadow-sm transition-all duration-300">
+                        <div class="flex items-center gap-2 mb-1">
+                            <iconify-icon icon="solar:shield-check-bold-duotone" class="text-red-400"></iconify-icon>
+                        </div>
+                        <span class="font-display font-black text-xl text-red-500 leading-none">-30%</span>
+                        <p class="text-[10px] md:text-xs font-semibold text-gray-700 leading-tight">Evasão e <br><span
+                                class="text-gray-500 font-medium">Churn Passivo</span></p>
+                    </div>
+                </div>
+
+                <div class="gsap-reveal flex flex-col sm:flex-row gap-6 items-center">
+                    <button class="btn-beam">
+                        <div class="btn-beam-bg"></div>
+                        <div class="btn-beam-inner">
+                            Agendar reunião <iconify-icon icon="solar:arrow-right-line-duotone"
+                                class="text-xl"></iconify-icon>
+                        </div>
+                    </button>
+
+                    <a href="#fluxo"
+                        class="text-sm font-mono font-bold text-gray-400 uppercase tracking-widest hover:text-primary border-b border-transparent hover:border-primary pb-1 transition-all flex items-center gap-2 group">
+                        Ver Funcionamento
+                        <iconify-icon icon="solar:round-alt-arrow-down-linear"
+                            class="text-lg group-hover:translate-y-1 transition-transform"></iconify-icon>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Terminal/Glass Floating Widget (Similar to Rapdin / DS19) -->
+            <div class="hero-widget gsap-reveal w-full md:w-2/5 relative h-[600px] flex items-center justify-center">
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent z-10 pointer-events-none">
+                </div>
+                <div
+                    class="glass-panel w-full max-w-md rounded-[40px] p-8 shadow-2xl border border-white relative animate-float">
+
+                    <div class="flex justify-between items-center mb-8 border-b border-gray-100 pb-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                        </div>
+                        <span class="font-mono text-xs text-gray-400">Core_Module_v2.2.sys</span>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div
+                            class="group p-4 bg-gray-50 hover:bg-white rounded-2xl border border-gray-100 hover:border-brandAccent transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex items-start gap-4 cursor-default">
+                            <div
+                                class="w-10 h-10 rounded-full bg-brandAccent/20 group-hover:bg-brandAccent group-hover:text-white transition-colors duration-300 flex items-center justify-center text-brandAccent shrink-0">
+                                <iconify-icon icon="solar:wallet-money-bold-duotone" class="text-xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-primary font-mono select-none">LIA > Otimização
+                                    Financeira</h4>
+                                <p class="text-xs text-gray-500 mt-1 transition-all duration-300">
+                                    <span
+                                        class="group-hover:text-brandAccent group-hover:font-extrabold group-hover:text-sm transition-all duration-300">Recuperando
+                                        R$ 12.450 em faturas</span> não pagas nas
+                                    últimas 2h.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="group p-4 bg-gray-50 hover:bg-white rounded-2xl border border-gray-100 hover:border-brandAccent transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex items-start gap-4 cursor-default">
+                            <div
+                                class="w-10 h-10 rounded-full bg-brandAccent/10 group-hover:bg-brandAccent group-hover:text-white transition-colors duration-300 flex items-center justify-center text-brandAccent shrink-0">
+                                <iconify-icon icon="solar:headphones-round-sound-bold-duotone"
+                                    class="text-xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-primary font-mono select-none">GABI > Qualidade de OS
+                                </h4>
+                                <p class="text-xs text-gray-500 mt-1 transition-all duration-300">
+                                    <span
+                                        class="group-hover:text-brandAccent group-hover:font-extrabold group-hover:text-sm transition-all duration-300">Auditando
+                                        45 atendimentos de campo.</span> 3 reaberturas
+                                    acionadas.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="group p-4 bg-gray-50 hover:bg-white rounded-2xl border border-gray-100 hover:border-red-500 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex items-start gap-4 cursor-default">
+                            <div
+                                class="w-10 h-10 rounded-full bg-red-100 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300 flex items-center justify-center text-red-600 shrink-0">
+                                <iconify-icon icon="solar:shield-warning-bold-duotone" class="text-xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-primary font-mono select-none">NOAH > Prevenção Churn
+                                </h4>
+                                <p class="text-xs text-gray-500 mt-1 transition-all duration-300">
+                                    Intervenção 24/7 na base de risco. <span
+                                        class="group-hover:text-red-600 group-hover:font-extrabold group-hover:text-sm transition-all duration-300">6
+                                        evasões
+                                        evitadas hoje.</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sessão Marquee Divider (Movido da área inferor) -->
+    <div class="py-3 bg-[#09090b] overflow-hidden border-y border-white/5">
+        <div class="marquee-wrapper" style="mask-image: none;">
+            <div class="animate-marquee whitespace-nowrap gap-12 items-center flex" style="animation-duration: 20s;">
+                <span class="font-display font-medium text-sm text-white/80 tracking-widest uppercase">AGENTES
+                    AUTÔNOMOS</span>
+                <iconify-icon icon="solar:star-fall-bold-duotone" class="text-sm text-brandAccent"></iconify-icon>
+                <span class="font-display font-medium text-sm text-white/80 tracking-widest uppercase">AUMENTO DE
+                    RECEITA</span>
+                <iconify-icon icon="solar:star-fall-bold-duotone" class="text-sm text-brandAccent"></iconify-icon>
+                <span class="font-display font-medium text-sm text-white/80 tracking-widest uppercase">GANHO DE
+                    PRODUTIVIDADE</span>
+                <iconify-icon icon="solar:star-fall-bold-duotone" class="text-sm text-brandAccent"></iconify-icon>
+                <span class="font-display font-medium text-sm text-white/80 tracking-widest uppercase">REDUÇÃO DE
+                    CUSTOS</span>
+                <iconify-icon icon="solar:star-fall-bold-duotone" class="text-sm text-brandAccent"></iconify-icon>
+
+                <!-- Repeat for infinite flow -->
+                <span class="font-display font-medium text-sm text-white/80 tracking-widest uppercase">AGENTES
+                    AUTÔNOMOS</span>
+                <iconify-icon icon="solar:star-fall-bold-duotone" class="text-sm text-brandAccent"></iconify-icon>
+                <span class="font-display font-medium text-sm text-white/80 tracking-widest uppercase">AUMENTO DE
+                    RECEITA</span>
+                <iconify-icon icon="solar:star-fall-bold-duotone" class="text-sm text-brandAccent"></iconify-icon>
+                <span class="font-display font-medium text-sm text-white/80 tracking-widest uppercase">GANHO DE
+                    PRODUTIVIDADE</span>
+                <iconify-icon icon="solar:star-fall-bold-duotone" class="text-sm text-brandAccent"></iconify-icon>
+                <span class="font-display font-medium text-sm text-white/80 tracking-widest uppercase">REDUÇÃO DE
+                    CUSTOS</span>
+                <iconify-icon icon="solar:star-fall-bold-duotone" class="text-sm text-brandAccent"></iconify-icon>
+
+                <!-- Extra elements to ensure seamless loop with shorter animation -->
+                <span class="font-display font-medium text-sm text-white/80 tracking-widest uppercase">EFICIÊNCIA
+                    OPERACIONAL</span>
+                <iconify-icon icon="solar:star-fall-bold-duotone" class="text-sm text-brandAccent"></iconify-icon>
+                <span class="font-display font-medium text-sm text-white/80 tracking-widest uppercase">RETENÇÃO
+                    ATIVA</span>
+                <iconify-icon icon="solar:star-fall-bold-duotone" class="text-sm text-brandAccent"></iconify-icon>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sessão 2: O Vazamento (Dark Flashlight Mode with Video BG) -->
+    <section id="diagnostico" class="py-[150px] bg-[var(--bg-deep)] relative overflow-hidden">
+        <!-- Video Background Layer -->
+        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-30">
+            <video id="vazamento-bg-video" class="w-full h-full object-cover" autoplay muted loop playsinline
+                preload="auto">
+                <source src="videos/v%C3%ADdeo%20segunda%20sess%C3%A3o.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div
+            class="parallax-bg grid-bg-dark absolute inset-0 z-[1] opacity-50 pointer-events-none scale-150 transform origin-top">
+        </div>
+
+        <div class="noise-overlay"></div>
+        <div class="glow-point w-[500px] h-[500px] -top-32 -left-32 opacity-15"></div>
+        <div class="glow-point w-[600px] h-[600px] bottom-0 right-0 opacity-10"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+            <div class="vazamento-header gsap-reveal flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                <div class="max-w-xl">
+                    <span class="text-xs font-mono uppercase tracking-[0.25em] text-gray-500 block mb-4">01 — O
+                        Vazamento</span>
+                    <h2 class="font-display text-2xl md:text-3xl lg:text-4xl font-black text-white tracking-tight">
+                        Onde a sua operação <br>
+                        <span class="text-brandAccent">vaza caixa hoje?</span>
+                    </h2>
+                </div>
+                <div class="max-w-md md:text-right md:pb-2">
+                    <p class="text-lg text-gray-400 font-medium leading-relaxed">
+                        Você perde receita em quatro pontos previsíveis, e todos são corrigíveis com processo, régua e
+                        automação com governança.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Hover Cards with Flashlight -->
+                <div class="vazamento-card gsap-reveal flashlight-card glass-panel-dark rounded-[32px] p-6 lg:p-8 flex flex-col justify-between group cursor-default transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_-15px_rgba(239,68,68,0.15)] hover:border-red-500/20"
+                    onmousemove="var rect = this.getBoundingClientRect(); this.style.setProperty('--mouse-x', `${event.clientX - rect.left}px`); this.style.setProperty('--mouse-y', `${event.clientY - rect.top}px`);">
+                    <div class="relative z-10">
+                        <iconify-icon icon="solar:user-block-bold-duotone"
+                            class="text-4xl lg:text-5xl text-gray-500 group-hover:text-red-500 group-hover:scale-110 transition-all duration-500 mb-6 origin-left"></iconify-icon>
+                        <h3 class="font-bold text-xl text-white mb-4">Churn Recorrente</h3>
+                        <div
+                            class="mb-4 pt-4 border-t border-gray-800 transition-transform duration-500 group-hover:scale-[1.05] origin-left group-hover:border-red-500/30">
+                            <span
+                                class="font-display font-black text-xl lg:text-2xl text-red-500 block leading-none mb-1 group-hover:text-red-400 drop-shadow-[0_0_10px_rgba(239,68,68,0)] group-hover:drop-shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all duration-500">R$
+                                4.500+</span>
+                            <span
+                                class="text-[10px] font-mono uppercase tracking-wider text-red-400/70 group-hover:text-red-300 transition-colors duration-500">LTV
+                                Evaporado / Cancelamento</span>
+                        </div>
+                        <p
+                            class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
+                            O cliente cancela sem dar chance à retenção por atrito invisível acumulado.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="vazamento-card gsap-reveal flashlight-card glass-panel-dark rounded-[32px] p-6 lg:p-8 flex flex-col justify-between group cursor-default transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_-15px_rgba(239,68,68,0.15)] hover:border-red-500/20"
+                    onmousemove="var rect = this.getBoundingClientRect(); this.style.setProperty('--mouse-x', `${event.clientX - rect.left}px`); this.style.setProperty('--mouse-y', `${event.clientY - rect.top}px`);">
+                    <div class="relative z-10">
+                        <iconify-icon icon="solar:wallet-money-bold-duotone"
+                            class="text-4xl lg:text-5xl text-gray-500 group-hover:text-red-500 group-hover:scale-110 transition-all duration-500 mb-6 origin-left"></iconify-icon>
+                        <h3 class="font-bold text-xl text-white mb-4">Inadimplência Crônica</h3>
+                        <div
+                            class="mb-4 pt-4 border-t border-gray-800 transition-transform duration-500 group-hover:scale-[1.05] origin-left group-hover:border-red-500/30">
+                            <span
+                                class="font-display font-black text-xl lg:text-2xl text-red-500 block leading-none mb-1 group-hover:text-red-400 drop-shadow-[0_0_10px_rgba(239,68,68,0)] group-hover:drop-shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all duration-500">12%
+                                a 18%</span>
+                            <span
+                                class="text-[10px] font-mono uppercase tracking-wider text-red-400/70 group-hover:text-red-300 transition-colors duration-500">Faturamento
+                                Prescrito / Mês</span>
+                        </div>
+                        <p
+                            class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
+                            Faturas perdidas nos canais errados sangram o caixa em silêncio por falta de timing.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="vazamento-card gsap-reveal flashlight-card glass-panel-dark rounded-[32px] p-6 lg:p-8 flex flex-col justify-between group cursor-default transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_-15px_rgba(239,68,68,0.15)] hover:border-red-500/20"
+                    onmousemove="var rect = this.getBoundingClientRect(); this.style.setProperty('--mouse-x', `${event.clientX - rect.left}px`); this.style.setProperty('--mouse-y', `${event.clientY - rect.top}px`);">
+                    <div class="relative z-10">
+                        <iconify-icon icon="solar:graph-down-bold-duotone"
+                            class="text-4xl lg:text-5xl text-gray-500 group-hover:text-red-500 group-hover:scale-110 transition-all duration-500 mb-6 origin-left"></iconify-icon>
+                        <h3 class="font-bold text-xl text-white mb-4">Diminuição da Base de Clientes</h3>
+                        <div
+                            class="mb-4 pt-4 border-t border-gray-800 transition-transform duration-500 group-hover:scale-[1.05] origin-left group-hover:border-red-500/30">
+                            <span
+                                class="font-display font-black text-xl lg:text-2xl text-red-500 block leading-none mb-1 group-hover:text-red-400 drop-shadow-[0_0_10px_rgba(239,68,68,0)] group-hover:drop-shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all duration-500">-15%
+                                / Ano</span>
+                            <span
+                                class="text-[10px] font-mono uppercase tracking-wider text-red-400/70 group-hover:text-red-300 transition-colors duration-500">Erosão
+                                de Marketshare</span>
+                        </div>
+                        <p
+                            class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
+                            A base encolhe silenciosamente por falta de proatividade e percepção de valor.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="vazamento-card gsap-reveal flashlight-card glass-panel-dark rounded-[32px] p-6 lg:p-8 flex flex-col justify-between group cursor-default transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_-15px_rgba(239,68,68,0.15)] hover:border-red-500/20"
+                    onmousemove="var rect = this.getBoundingClientRect(); this.style.setProperty('--mouse-x', `${event.clientX - rect.left}px`); this.style.setProperty('--mouse-y', `${event.clientY - rect.top}px`);">
+                    <div class="relative z-10">
+                        <iconify-icon icon="solar:settings-minimalistic-bold-duotone"
+                            class="text-4xl lg:text-5xl text-gray-500 group-hover:text-red-500 group-hover:scale-110 transition-all duration-500 mb-6 origin-left"></iconify-icon>
+                        <h3 class="font-bold text-xl text-white mb-4">Redução da Eficiência Operacional</h3>
+                        <div
+                            class="mb-4 pt-4 border-t border-gray-800 transition-transform duration-500 group-hover:scale-[1.05] origin-left group-hover:border-red-500/30">
+                            <span
+                                class="font-display font-black text-xl lg:text-2xl text-red-500 block leading-none mb-1 group-hover:text-red-400 drop-shadow-[0_0_10px_rgba(239,68,68,0)] group-hover:drop-shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all duration-500">~R$
+                                200</span>
+                            <span
+                                class="text-[10px] font-mono uppercase tracking-wider text-red-400/70 group-hover:text-red-300 transition-colors duration-500">Por
+                                Visita Improdutiva</span>
+                        </div>
+                        <p
+                            class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
+                            Deslocamentos caríssimos para agendamentos esquecidos e rotas mal consolidadas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vazamento-footer gsap-reveal mt-32 md:mt-40 flex flex-col items-center gap-12">
+                <div class="text-center border-l-2 border-white/20 pl-6 mx-auto max-w-xl">
+                    <p class="text-gray-400 font-mono text-sm leading-relaxed">
+                        <span class="text-white font-bold">Resolução:</span> A solução não é contratar mais braços, mas
+                        evoluir o seu ecossistema cerebral com agentes autônomos.
+                    </p>
+                </div>
+
+                <button class="btn-beam">
+                    <div class="btn-beam-bg btn-beam-bg-dark"></div>
+                    <div class="btn-beam-inner btn-beam-inner-brand">
+                        Estancar Vazamentos <iconify-icon icon="solar:arrow-right-line-duotone"
+                            class="text-lg"></iconify-icon>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sessão 3: Os Agentes (Premium Image Cards) -->
+    <section id="agentes" class="py-[150px] bg-[#F8FAFC] relative overflow-hidden">
+        <!-- Blue Glow Atmosphere -->
+        <div
+            class="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-50/30 to-transparent pointer-events-none">
+        </div>
+        <div class="glow-point-light w-[800px] h-[800px] -bottom-1/3 -left-1/4 opacity-15"></div>
+        <div class="glow-point-light w-[600px] h-[600px] top-0 right-0 opacity-10"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="agentes-header gsap-reveal flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                <div class="max-w-2xl">
+                    <span class="text-xs font-mono uppercase tracking-[0.25em] text-brandAccent block mb-4">02 —
+                        Esquadrão Autônomo</span>
+                    <h2
+                        class="font-display text-2xl md:text-3xl lg:text-4xl font-black text-primary tracking-tight uppercase leading-[1.1]">
+                        O time que nunca dorme e não perde o contexto.
+                    </h2>
+                </div>
+                <div class="max-w-sm">
+                    <p class="text-base text-gray-500 font-medium leading-relaxed">
+                        Agentes especializados. Cada IA domina estritamente o seu foco para não atravessar processos.
+                        Dividimos a carga em quatro centros de inteligência.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Agent Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <!-- GABI -->
+                <div class="agent-card-wrapper gsap-reveal agent-card relative group h-[450px]">
+                    <div class="agent-card-inner w-full h-full rounded-[32px] overflow-hidden bg-gray-100 relative">
+                        <img src="images/GABI.png" alt="GABI - Suporte"
+                            class="agent-img w-full h-full object-cover object-top absolute inset-0 mix-blend-multiply opacity-90">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent">
+                        </div>
+
+                        <!-- Mobile Tap Indicator -->
+                        <div
+                            class="md:hidden absolute bottom-32 right-6 z-20 text-white animate-bounce group-hover:opacity-0 transition-opacity duration-300 flex flex-col items-center gap-1 opacity-70 pointer-events-none">
+                            <iconify-icon icon="solar:cursor-bold-duotone"
+                                class="text-2xl drop-shadow-lg"></iconify-icon>
+                            <span class="text-[9px] font-mono tracking-widest uppercase drop-shadow-md">Toque</span>
+                        </div>
+
+                        <div
+                            class="absolute inset-x-0 bottom-0 p-8 transform transition-transform duration-500 translate-y-4 group-hover:translate-y-0 text-white">
+                            <h3 class="font-display text-2xl font-black mb-1">GABI</h3>
+                            <div
+                                class="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-400 mb-4 opacity-100 transition-opacity">
+                                Suporte & Qualidade</div>
+                            <p
+                                class="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500 leading-relaxed delay-100">
+                                Atua após fechamento de OS. Retém NPS em casos positivos ou reabre tickets
+                                automaticamente preservando histórico completo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIA -->
+                <div class="agent-card-wrapper gsap-reveal agent-card relative group h-[450px]">
+                    <div class="agent-card-inner w-full h-full rounded-[32px] overflow-hidden bg-gray-100 relative">
+                        <img src="images/LIA.png" alt="LIA - Financeiro"
+                            class="agent-img w-full h-full object-cover object-top absolute inset-0 mix-blend-multiply opacity-90">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent">
+                        </div>
+
+                        <!-- Mobile Tap Indicator -->
+                        <div
+                            class="md:hidden absolute bottom-32 right-6 z-20 text-white animate-bounce group-hover:opacity-0 transition-opacity duration-300 flex flex-col items-center gap-1 opacity-70 pointer-events-none">
+                            <iconify-icon icon="solar:cursor-bold-duotone"
+                                class="text-2xl drop-shadow-lg"></iconify-icon>
+                            <span class="text-[9px] font-mono tracking-widest uppercase drop-shadow-md">Toque</span>
+                        </div>
+
+                        <div
+                            class="absolute inset-x-0 bottom-0 p-8 transform transition-transform duration-500 translate-y-4 group-hover:translate-y-0 text-white">
+                            <h3 class="font-display text-2xl font-black mb-1">LIA</h3>
+                            <div
+                                class="text-[10px] font-mono font-bold uppercase tracking-widest text-brandAccent mb-4 opacity-100 transition-opacity">
+                                Módulo Financeiro</div>
+                            <p
+                                class="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500 leading-relaxed delay-100">
+                                Comanda régua de cobrança, gera 2ª via, PIX, renegocia pendências e executa desbloqueios
+                                de confiança blindados.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NOAH -->
+                <div class="agent-card-wrapper gsap-reveal agent-card relative group h-[450px]">
+                    <div class="agent-card-inner w-full h-full rounded-[32px] overflow-hidden bg-gray-100 relative">
+                        <img src="images/NOAH.png" alt="NOAH - Retenção"
+                            class="agent-img w-full h-full object-cover object-top absolute inset-0 mix-blend-multiply opacity-90">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent">
+                        </div>
+
+                        <!-- Mobile Tap Indicator -->
+                        <div
+                            class="md:hidden absolute bottom-32 right-6 z-20 text-white animate-bounce group-hover:opacity-0 transition-opacity duration-300 flex flex-col items-center gap-1 opacity-70 pointer-events-none">
+                            <iconify-icon icon="solar:cursor-bold-duotone"
+                                class="text-2xl drop-shadow-lg"></iconify-icon>
+                            <span class="text-[9px] font-mono tracking-widest uppercase drop-shadow-md">Toque</span>
+                        </div>
+
+                        <div
+                            class="absolute inset-x-0 bottom-0 p-8 transform transition-transform duration-500 translate-y-4 group-hover:translate-y-0 text-white">
+                            <h3 class="font-display text-2xl font-black mb-1">NOAH</h3>
+                            <div
+                                class="text-[10px] font-mono font-bold uppercase tracking-widest text-red-400 mb-4 opacity-100 transition-opacity">
+                                Ação Anti-Churn</div>
+                            <p
+                                class="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500 leading-relaxed delay-100">
+                                Acessa diário de risco, aborda clientes rastreando causas profundas e tenta resgate ou
+                                escalona para humanos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TEO -->
+                <div class="agent-card-wrapper gsap-reveal agent-card relative group h-[450px]">
+                    <div class="agent-card-inner w-full h-full rounded-[32px] overflow-hidden bg-gray-100 relative">
+                        <img src="images/TEO.png" alt="TEO - SDR"
+                            class="agent-img w-full h-full object-cover object-top absolute inset-0 mix-blend-multiply opacity-90">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent">
+                        </div>
+
+                        <!-- Mobile Tap Indicator -->
+                        <div
+                            class="md:hidden absolute bottom-32 right-6 z-20 text-white animate-bounce group-hover:opacity-0 transition-opacity duration-300 flex flex-col items-center gap-1 opacity-70 pointer-events-none">
+                            <iconify-icon icon="solar:cursor-bold-duotone"
+                                class="text-2xl drop-shadow-lg"></iconify-icon>
+                            <span class="text-[9px] font-mono tracking-widest uppercase drop-shadow-md">Toque</span>
+                        </div>
+
+                        <div
+                            class="absolute inset-x-0 bottom-0 p-8 transform transition-transform duration-500 translate-y-4 group-hover:translate-y-0 text-white">
+                            <h3 class="font-display text-2xl font-black mb-1">TEO</h3>
+                            <div
+                                class="text-[10px] font-mono font-bold uppercase tracking-widest text-purple-400 mb-4 opacity-100 transition-opacity">
+                                Negociação & SDR</div>
+                            <p
+                                class="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500 leading-relaxed delay-100">
+                                Qualifica base de leads entrantes, valida viabilidade técnica, envia propostas e leva o
+                                prospect à assinatura.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Agent Section CTA -->
+            <div class="mt-24 flex justify-center gsap-reveal agent-footer">
+                <button class="btn-beam">
+                    <div class="btn-beam-bg btn-beam-bg-dark"></div>
+                    <div
+                        class="btn-beam-inner-brand btn-beam-inner font-mono !uppercase !tracking-widest !text-xs !text-white !border-0 shadow-xl">
+                        Montar Meu Esquadrão <iconify-icon icon="solar:users-group-rounded-bold-duotone"
+                            class="text-lg"></iconify-icon>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sessão X: Benefícios Impactantes -->
+    <section id="beneficios"
+        class="py-[120px] bg-[var(--bg-deep)] relative overflow-hidden text-white border-y border-gray-800">
+        <!-- Abstract gradient background -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+            <div
+                class="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] bg-[#A7B711] rounded-full blur-[150px] mix-blend-screen opacity-50">
+            </div>
+            <div
+                class="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] bg-blue-600 rounded-full blur-[150px] mix-blend-screen opacity-30">
+            </div>
+        </div>
+
+        <div class="grid-bg-dark absolute inset-0 opacity-40 pointer-events-none"></div>
+        <div class="noise-overlay"></div>
+        <div class="glow-point w-[400px] h-[400px] top-0 left-1/4 opacity-10"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+            <div class="agentes-header gsap-reveal flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                <div class="max-w-2xl text-left">
+                    <span class="text-xs font-mono uppercase tracking-[0.25em] text-brandAccent block mb-4">Impacto
+                        Direto no Caixa</span>
+                    <h2
+                        class="font-display text-2xl md:text-3xl lg:text-4xl font-black text-white tracking-tight uppercase leading-[1.1]">
+                        Métricas que comprovam o impacto da nossa operação.
+                    </h2>
+                </div>
+                <div class="max-w-sm text-left">
+                    <p class="text-base text-gray-400 font-medium leading-relaxed">
+                        Automação com governança: menos custo, menos churn, mais base de clientes.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <!-- Benefício 1: Custo Operacional -->
+                <div class="border-beam-card gsap-reveal">
+                    <div class="border-beam-inner group">
+                        <div class="relative z-10 w-full flex flex-col gap-4">
+                            <iconify-icon icon="solar:graph-down-bold-duotone"
+                                class="text-4xl lg:text-5xl text-brandAccent transition-all duration-500 origin-left"></iconify-icon>
+                            <h3 class="font-bold text-xl text-white">Redução do custo operacional</h3>
+                            <div
+                                class="pt-4 border-t border-gray-800 group-hover:border-brandAccent/30 transition-colors">
+                                <span
+                                    class="font-display font-black text-xl lg:text-2xl text-white block leading-none mb-1 group-hover:text-brandAccent transition-all duration-500 uppercase">-70%</span>
+                                <span
+                                    class="text-[10px] font-mono uppercase tracking-wider text-gray-500 group-hover:text-blue-400 transition-colors duration-500">Média
+                                    de Redução / Estrutura</span>
+                            </div>
+                            <p
+                                class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
+                                Redução drástica na infraestrutura de N1, terceirizando tarefas repetitivas com precisão
+                                absoluta.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefício 2: Recuperação de Crédito -->
+                <div class="border-beam-card gsap-reveal" style="transition-delay: 100ms;">
+                    <div class="border-beam-inner group">
+                        <div class="relative z-10 w-full flex flex-col gap-4">
+                            <iconify-icon icon="solar:wallet-money-bold-duotone"
+                                class="text-4xl lg:text-5xl text-brandAccent transition-all duration-500 origin-left"></iconify-icon>
+                            <h3 class="font-bold text-xl text-white">Redução da inadimplência</h3>
+                            <div
+                                class="pt-4 border-t border-gray-800 group-hover:border-brandAccent/30 transition-colors">
+                                <span
+                                    class="font-display font-black text-xl lg:text-2xl text-white block leading-none mb-1 group-hover:text-brandAccent transition-all duration-500 uppercase">-40%</span>
+                                <span
+                                    class="text-[10px] font-mono uppercase tracking-wider text-gray-500 group-hover:text-blue-400 transition-colors duration-500">Recuperação
+                                    de Receita</span>
+                            </div>
+                            <p
+                                class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
+                                Cobranças escalonadas e precisas recuperam o faturamento antes mesmo que os títulos
+                                virem passivos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefício 3: Redução de Churn -->
+                <div class="border-beam-card gsap-reveal" style="transition-delay: 200ms;">
+                    <div class="border-beam-inner group">
+                        <div class="relative z-10 w-full flex flex-col gap-4">
+                            <iconify-icon icon="solar:user-cross-bold-duotone"
+                                class="text-4xl lg:text-5xl text-brandAccent transition-all duration-500 origin-left"></iconify-icon>
+                            <h3 class="font-bold text-xl text-white">Redução de Churn</h3>
+                            <div
+                                class="pt-4 border-t border-gray-800 group-hover:border-brandAccent/30 transition-colors">
+                                <span
+                                    class="font-display font-black text-xl lg:text-2xl text-white block leading-none mb-1 group-hover:text-brandAccent transition-all duration-500 uppercase">-30%</span>
+                                <span
+                                    class="text-[10px] font-mono uppercase tracking-wider text-gray-500 group-hover:text-blue-400 transition-colors duration-500">Média
+                                    de Retenção</span>
+                            </div>
+                            <p
+                                class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
+                                Identificação precoce de comportamento de cancelamento permite ações preventivas
+                                baseadas em dados.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Benefício 4: Base de Clientes -->
+                <div class="border-beam-card gsap-reveal" style="transition-delay: 300ms;">
+                    <div class="border-beam-inner group">
+                        <div class="relative z-10 w-full flex flex-col gap-4">
+                            <iconify-icon icon="solar:users-group-rounded-bold-duotone"
+                                class="text-4xl lg:text-5xl text-brandAccent transition-all duration-500 origin-left"></iconify-icon>
+                            <h3 class="font-bold text-xl text-white">Aumento da base de clientes</h3>
+                            <div
+                                class="pt-4 border-t border-gray-800 group-hover:border-brandAccent/30 transition-colors">
+                                <span
+                                    class="font-display font-black text-xl lg:text-2xl text-white block leading-none mb-1 group-hover:text-brandAccent transition-all duration-500 uppercase">+15%</span>
+                                <span
+                                    class="text-[10px] font-mono uppercase tracking-wider text-gray-500 group-hover:text-blue-400 transition-colors duration-500">Crescimento
+                                    de Ativos</span>
+                            </div>
+                            <p
+                                class="text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
+                                Crescimento sustentável da base através de prospecção autônoma e qualificação precisa de
+                                leads.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New CTA for Section 4 -->
+            <div class="flex justify-center gsap-reveal">
+                <button class="btn-beam">
+                    <div class="btn-beam-bg"></div>
+                    <div
+                        class="btn-beam-inner btn-beam-inner-brand font-mono !uppercase !tracking-widest !text-xs !text-white !border-0 shadow-xl">
+                        Implantar operação <iconify-icon icon="solar:settings-bold-duotone"
+                            class="text-lg"></iconify-icon>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sessão 4: A Jornada da Automação (Pinned Scroll Journey) -->
+    <section id="produto" class="bg-[#F8FAFC] relative overflow-visible w-full">
+        <div class="absolute inset-0 bg-gradient-to-b from-white via-blue-50/10 to-white pointer-events-none"></div>
+        <div class="glow-point-light w-[400px] h-[400px] top-1/4 -right-1/4 opacity-5"></div>
+
+        <!-- The container that will be pinned -->
+        <div id="pin-container"
+            class="h-screen w-full flex items-center justify-center relative overflow-hidden pt-24 pb-4 md:pt-4">
+
+            <div
+                class="max-w-7xl mx-auto px-4 sm:px-6 w-full flex flex-col lg:flex-row gap-6 md:gap-12 lg:gap-20 items-center justify-between z-10">
+
+                <!-- Left Side: Changing Text blocks (Absolute positioned to overlap) -->
+                <div class="w-full lg:w-1/2 relative h-[250px] sm:h-[300px] lg:h-[400px] flex items-center">
+
+                    <!-- Step 1: The Problem -->
+                    <div id="text-step-1" class="absolute inset-x-0 top-0 lg:inset-0 flex flex-col justify-center">
+                        <span
+                            class="text-[10px] md:text-xs font-mono uppercase tracking-[0.25em] text-red-500 block mb-2 md:mb-4">03
+                            — O
+                            Paradigma Fracassado</span>
+                        <h2
+                            class="font-display text-2xl md:text-4xl lg:text-5xl font-black text-primary tracking-tight mb-3 md:mb-6">
+                            Não somos chatbot <br> <span class="text-gray-400">engessado.</span>
+                        </h2>
+                        <p class="text-sm md:text-lg text-gray-600 leading-relaxed font-medium">
+                            O cliente odeia opções numeradas. Chatbots comuns tentam forçar o humano a agir como
+                            máquina. O resultado? O cliente burla o sistema exigindo um atendente irritado.
+                        </p>
+                    </div>
+
+                    <!-- Step 2: The Engine -->
+                    <div id="text-step-2"
+                        class="absolute inset-x-0 top-0 lg:inset-0 flex flex-col justify-center opacity-0 translate-y-12">
+                        <span
+                            class="text-[10px] md:text-xs font-mono uppercase tracking-[0.25em] text-brandAccent block mb-2 md:mb-4">04
+                            — A
+                            Arquitetura Contida</span>
+                        <h2
+                            class="font-display text-2xl md:text-4xl lg:text-5xl font-black text-primary tracking-tight mb-3 md:mb-6">
+                            Inteligência que opera <br> <span class="text-gray-400">em cima dos seus sistemas.</span>
+                        </h2>
+                        <p class="text-sm md:text-lg text-gray-600 leading-relaxed font-medium">
+                            Não usamos IAs generalistas soltas. Injetamos o cérebro das LLMs diretamente na API do seu
+                            IXC/SGP. A IA puxa o boleto em tempo real, sem adivinhar.
+                        </p>
+                    </div>
+
+                    <!-- Step 3: Practice -->
+                    <div id="text-step-3"
+                        class="absolute inset-x-0 top-0 lg:inset-0 flex flex-col justify-center opacity-0 translate-y-12">
+                        <span
+                            class="text-[10px] md:text-xs font-mono uppercase tracking-[0.25em] text-brandAccent block mb-2 md:mb-4">05
+                            —
+                            Autonomia Total</span>
+                        <h2
+                            class="font-display text-2xl md:text-4xl lg:text-5xl font-black text-primary tracking-tight mb-3 md:mb-6">
+                            Resolução real <br> <span class="text-gray-400">em tempo recorde.</span>
+                        </h2>
+                        <p class="text-sm md:text-lg text-gray-600 leading-relaxed font-medium">
+                            Sem intervenção humana. O cliente pede, a IA autentica o CPF, analisa o débito, emite a
+                            chave PIX e, ao confirmar o banco, libera o sinal em menos de 10 segundos.
+                        </p>
+                    </div>
+
+                    <!-- Step 4: Negotiation Simulation -->
+                    <div id="text-step-4"
+                        class="absolute inset-x-0 top-0 lg:inset-0 flex flex-col justify-center opacity-0 translate-y-12">
+                        <span
+                            class="text-[10px] md:text-xs font-mono uppercase tracking-[0.25em] text-purple-600 block mb-2 md:mb-4">06
+                            —
+                            Agente TEO em Ação</span>
+                        <h2
+                            class="font-display text-2xl md:text-4xl lg:text-5xl font-black text-primary tracking-tight mb-3 md:mb-6">
+                            Persuasão Ativa <br> <span class="text-gray-400">via Agente TEO.</span>
+                        </h2>
+                        <p class="text-sm md:text-lg text-gray-600 leading-relaxed font-medium">
+                            TEO não é apenas um bot; é um negociador de alto nível. Ele analisa o tempo de casa, o
+                            perfil de pagamento e o valor do plano para criar ofertas de retenção personalizadas em
+                            segundos.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Right Side: Changing Mockups -->
+                <div
+                    class="w-full lg:w-1/2 relative h-[380px] sm:h-[450px] lg:h-[550px] flex items-start lg:items-center justify-center perspective-midrange mt-12 md:mt-20 lg:mt-0">
+
+                    <!-- Decorative back plates -->
+                    <div class="absolute w-[80%] h-[80%] bg-gray-200 rounded-[40px] -z-10 -rotate-3 translate-x-4 opacity-50 transition-transform duration-700"
+                        id="backing-plate-1"></div>
+                    <div class="absolute w-[75%] h-[75%] bg-gray-300 rounded-[40px] -z-20 rotate-3 -translate-x-4 opacity-30 transition-transform duration-700"
+                        id="backing-plate-2"></div>
+
+                    <!-- Mockup 1: Dumb Chatbot -->
+                    <div id="mockup-step-1"
+                        class="absolute w-[95%] lg:w-[85%] bg-white rounded-[24px] lg:rounded-[40px] p-4 lg:p-6 shadow-2xl border border-gray-100 flex flex-col">
+                        <div class="flex items-center gap-3 mb-4 lg:mb-6 pb-3 lg:pb-4 border-b border-gray-100">
+                            <div
+                                class="w-8 h-8 lg:w-10 lg:h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                                <iconify-icon icon="solar:robot-line-duotone"
+                                    class="text-lg lg:text-xl text-gray-400"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="font-bold text-xs lg:text-sm">Bot Padrão</p>
+                                <p class="text-[10px] lg:text-xs text-green-500 font-mono">Online</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2 lg:space-y-4 flex-1">
+                            <div
+                                class="bg-gray-100 p-2 lg:p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl max-w-[90%] lg:max-w-[85%] text-xs lg:text-sm text-gray-600">
+                                Olá! Digite 1 para Financeiro, 2 para Suporte Técnico, 3 para Comercial ou 4 para Falar
+                                com Humano.
+                            </div>
+                            <div
+                                class="bg-brandAccent text-primary font-medium p-2 lg:p-3 rounded-tl-xl rounded-br-xl rounded-bl-xl max-w-[90%] lg:max-w-[85%] self-end text-xs lg:text-sm ml-auto">
+                                Minha internet caiu faz 10 minutos
+                            </div>
+                            <div
+                                class="bg-red-50 p-2 lg:p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl max-w-[90%] lg:max-w-[85%] text-xs lg:text-sm text-red-600 border border-red-100">
+                                ⚠️ Desculpe, comando inválido. Digite 1, 2, 3 ou 4.
+                            </div>
+                            <div
+                                class="bg-brandAccent text-primary font-medium p-2 lg:p-3 rounded-tl-xl rounded-br-xl rounded-bl-xl max-w-[90%] lg:max-w-[85%] self-end text-xs lg:text-sm ml-auto">
+                                4
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mockup 2: The Integration Engine (Ecosystem Hub) -->
+                    <div id="mockup-step-2"
+                        class="absolute w-[95%] lg:w-[85%] bg-white rounded-[24px] lg:rounded-[40px] p-6 lg:p-10 shadow-2xl border border-gray-100 flex flex-col items-center justify-center opacity-0 translate-y-12 overflow-hidden">
+
+                        <!-- Header Labels -->
+                        <div class="absolute top-6 left-1/2 -translate-x-1/2 text-center w-full">
+                            <div
+                                class="font-mono text-[10px] lg:text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">
+                                ECOSISTEMA INTEGRADO</div>
+                            <div class="text-[9px] text-brandAccent font-mono">Conexão total com suas ferramentas</div>
+                        </div>
+
+                        <!-- The Hub and Spoke Visualization (4 Nodes) -->
+                        <div
+                            class="relative w-full aspect-square max-w-[280px] sm:max-w-xs lg:max-w-[420px] flex items-center justify-center mt-12 scale-90 sm:scale-100 transition-transform">
+
+                            <!-- Central Hub: CORE.SYS -->
+                            <div
+                                class="relative z-20 w-28 h-28 lg:w-36 lg:h-36 rounded-full bg-primary flex flex-col items-center justify-center shadow-[0_0_50px_rgba(0,87,255,0.25)] border-4 border-white animate-float p-4">
+                                <div
+                                    class="absolute inset-0 rounded-full border border-blue-400 animate-ping opacity-20">
+                                </div>
+                                <img src="images/logo icone 2.png" alt="Máquina ISP Logo"
+                                    class="h-10 lg:h-12 w-auto object-contain mb-1 drop-shadow-[0_0_10px_rgba(0,87,255,0.5)]">
+                                <span
+                                    class="text-white font-display font-black text-[10px] lg:text-xs tracking-tighter mt-1">CORE.SYS</span>
+                            </div>
+
+                            <!-- Connection Lines (Data beams) - 4 Directions -->
+                            <svg class="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-30"
+                                viewBox="0 0 100 100">
+                                <!-- Top Left: WhatsApp -->
+                                <line x1="50" y1="50" x2="20" y2="20" stroke="#E2E8F0" stroke-width="0.5"
+                                    stroke-dasharray="2,2" />
+                                <circle r="1" fill="#22C55E">
+                                    <animate attributeName="cx" from="50" to="20" dur="2s" repeatCount="indefinite" />
+                                    <animate attributeName="cy" from="50" to="20" dur="2s" repeatCount="indefinite" />
+                                </circle>
+
+                                <!-- Top Right: ERP -->
+                                <line x1="50" y1="50" x2="80" y2="20" stroke="#E2E8F0" stroke-width="0.5"
+                                    stroke-dasharray="2,2" />
+                                <circle r="1" fill="#0057FF">
+                                    <animate attributeName="cx" from="50" to="80" dur="1.8s" repeatCount="indefinite" />
+                                    <animate attributeName="cy" from="50" to="20" dur="1.8s" repeatCount="indefinite" />
+                                </circle>
+
+                                <!-- Bottom Right: CRM -->
+                                <line x1="50" y1="50" x2="80" y2="80" stroke="#E2E8F0" stroke-width="0.5"
+                                    stroke-dasharray="2,2" />
+                                <circle r="1" fill="#A855F7">
+                                    <animate attributeName="cx" from="50" to="80" dur="2.2s" repeatCount="indefinite" />
+                                    <animate attributeName="cy" from="50" to="80" dur="2.2s" repeatCount="indefinite" />
+                                </circle>
+
+                                <!-- Bottom Left: Spreadsheets -->
+                                <line x1="50" y1="50" x2="20" y2="80" stroke="#E2E8F0" stroke-width="0.5"
+                                    stroke-dasharray="2,2" />
+                                <circle r="1" fill="#EAB308">
+                                    <animate attributeName="cx" from="50" to="20" dur="1.7s" repeatCount="indefinite" />
+                                    <animate attributeName="cy" from="50" to="80" dur="1.7s" repeatCount="indefinite" />
+                                </circle>
+                            </svg>
+
+                            <!-- Node 1: WhatsApp (Top Left) -->
+                            <div
+                                class="absolute top-[0%] left-[0%] z-20 flex flex-col items-center gap-1 group scale-75 lg:scale-100">
+                                <div
+                                    class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-green-50 border border-green-100 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                                    <iconify-icon icon="logos:whatsapp-icon"
+                                        class="text-2xl lg:text-3xl"></iconify-icon>
+                                </div>
+                                <span
+                                    class="bg-green-100 text-green-700 text-[8px] lg:text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-tighter">Gateway
+                                    Ativo</span>
+                            </div>
+
+                            <!-- Node 2: ERP (Top Right) -->
+                            <div
+                                class="absolute top-[0%] right-[0%] z-20 flex flex-col items-center gap-1 group scale-75 lg:scale-100">
+                                <div
+                                    class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                                    <iconify-icon icon="solar:database-bold-duotone"
+                                        class="text-2xl lg:text-3xl text-gray-500"></iconify-icon>
+                                </div>
+                                <div class="flex flex-col items-center text-center">
+                                    <span class="text-primary font-bold text-[9px] lg:text-xs">ERP (IXC/SGP)</span>
+                                    <span class="text-[8px] lg:text-[10px] text-blue-500 font-mono">Real-time
+                                        Sync</span>
+                                </div>
+                            </div>
+
+                            <!-- Node 3: CRM (Bottom Right) -->
+                            <div
+                                class="absolute bottom-[0%] right-[0%] z-20 flex flex-col items-center gap-1 group scale-75 lg:scale-100">
+                                <div
+                                    class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                                    <iconify-icon icon="solar:users-group-rounded-bold-duotone"
+                                        class="text-2xl lg:text-3xl text-purple-600"></iconify-icon>
+                                </div>
+                                <div class="flex flex-col items-center text-center">
+                                    <span class="text-primary font-bold text-[9px] lg:text-xs">CRM & Vendas</span>
+                                    <span class="text-purple-500 text-[8px] lg:text-[10px] font-mono">Sync
+                                        Automatizado</span>
+                                </div>
+                            </div>
+
+                            <!-- Node 4: Spreadsheets (Bottom Left) -->
+                            <div
+                                class="absolute bottom-[0%] left-[0%] z-20 flex flex-col items-center gap-1 group scale-75 lg:scale-100">
+                                <div
+                                    class="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-yellow-50 border border-yellow-100 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                                    <iconify-icon icon="solar:document-text-bold-duotone"
+                                        class="text-2xl lg:text-3xl text-yellow-500"></iconify-icon>
+                                </div>
+                                <div class="flex flex-col items-center text-center">
+                                    <span class="text-primary font-bold text-[9px] lg:text-xs">Planilhas & Docs</span>
+                                    <span class="text-green-500 text-[8px] lg:text-[10px] font-mono">Extração de
+                                        Dados</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Mockup 3: In Practice (Autonomous UI) -->
+                    <div id="mockup-step-3"
+                        class="absolute w-[95%] lg:w-[85%] bg-[#09090b] rounded-[24px] lg:rounded-[40px] p-4 lg:p-6 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] border border-gray-800 flex flex-col text-white opacity-0 translate-y-12">
+                        <div class="flex items-center gap-3 mb-4 lg:mb-6 pb-3 lg:pb-4 border-b border-gray-800">
+                            <div
+                                class="w-8 h-8 lg:w-10 lg:h-10 bg-brandAccent/20 rounded-full flex items-center justify-center">
+                                <iconify-icon icon="solar:cpu-bold-duotone"
+                                    class="text-lg lg:text-xl text-brandAccent"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="font-bold text-[10px] lg:text-xs tracking-tight">LIA Agente Autônomo</p>
+                                <p class="text-[9px] lg:text-[10px] text-gray-500 font-mono">Processando linguagem
+                                    natural</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2 lg:space-y-4 flex-1">
+                            <div
+                                class="bg-gray-800 text-gray-200 p-2 lg:p-3 rounded-tl-xl rounded-br-xl rounded-bl-xl max-w-[90%] lg:max-w-[85%] self-end text-xs lg:text-sm ml-auto font-medium">
+                                Moça não consegui pagar o boleto e a net cortou, libera ai pff vou pagar amanhã
+                            </div>
+                            <div class="flex gap-2 items-center text-[9px] lg:text-[10px] font-mono text-gray-500 ml-2">
+                                <iconify-icon icon="solar:magic-stick-3-bold-duotone"
+                                    class="text-purple-400"></iconify-icon> Analisando intenção e extraindo CPF...
+                            </div>
+                            <div class="flex gap-2 items-center text-[9px] lg:text-[10px] font-mono text-gray-500 ml-2">
+                                <iconify-icon icon="solar:database-bold-duotone" class="text-blue-400"></iconify-icon>
+                                Fatura R$99,90 atrasada há 3 dias encontrada.
+                            </div>
+                            <div
+                                class="bg-[#151515] p-2 lg:p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl max-w-[95%] lg:max-w-[90%] text-xs lg:text-sm text-gray-300 border border-gray-800 leading-tight">
+                                Oi João! Vi aqui que a fatura de R$99,90 venceu no dia 10. Como você é um ótimo cliente
+                                nosso, **acabei de fazer o Desbloqueio de Confiança** e seu sinal já deve voltar em 3
+                                minutos! 💚<br><br>Gerei um Pix Copia e Cola atualizado para amanhã, está bem?
+                            </div>
+                            <div
+                                class="bg-gray-800/50 border border-gray-700 p-2 lg:p-3 rounded-xl flex items-center gap-2 lg:gap-3">
+                                <iconify-icon icon="solar:qr-code-bold-duotone"
+                                    class="text-xl lg:text-2xl text-brandAccent"></iconify-icon>
+                                <div>
+                                    <p class="text-[10px] lg:text-xs font-bold text-white leading-none">
+                                        00020126580014BR.GOV.BCB...</p>
+                                    <p class="text-[8px] lg:text-[10px] text-gray-400 mt-1">Pix Copia e Cola / Venc:
+                                        14/03</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mockup 4: Negotiation Simulation (Chatbot interaction) -->
+                    <div id="mockup-step-4"
+                        class="absolute w-[95%] lg:w-[85%] bg-[#0f172a] rounded-[24px] lg:rounded-[40px] p-4 lg:p-6 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] border border-slate-700 flex flex-col text-white opacity-0 translate-y-12">
+                        <div class="flex items-center gap-3 mb-4 lg:mb-6 pb-3 lg:pb-4 border-b border-slate-700">
+                            <div
+                                class="w-8 h-8 lg:w-10 lg:h-10 bg-purple-500/20 rounded-full flex items-center justify-center">
+                                <iconify-icon icon="solar:hand-money-bold-duotone"
+                                    class="text-lg lg:text-xl text-purple-400"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="font-bold text-[10px] lg:text-xs tracking-tight">Agente TEO</p>
+                                <p class="text-[9px] lg:text-[10px] text-slate-400 font-mono">IA de Negociação Ativa</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3 flex-1 overflow-y-auto max-h-[250px] pr-2 custom-scrollbar">
+                            <div
+                                class="bg-slate-800 p-2 lg:p-3 rounded-tl-xl rounded-br-xl rounded-bl-xl max-w-[90%] self-end text-xs lg:text-sm ml-auto text-slate-200">
+                                Quero cancelar. O plano está muito caro comparado à concorrência.
+                            </div>
+                            <div class="flex gap-2 items-center text-[9px] font-mono text-purple-400">
+                                <iconify-icon icon="solar:shield-check-bold-duotone"></iconify-icon> Verificando LTV e
+                                Score do Cliente...
+                            </div>
+                            <div
+                                class="bg-indigo-900/40 border border-indigo-500/30 p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl text-xs lg:text-sm text-indigo-100">
+                                Entendo perfeitamente sua posição, Maria. Vi que você está conosco há 2 anos e
+                                valorizamos muito sua parceria! 🤝
+                            </div>
+                            <div
+                                class="bg-indigo-900/40 border border-indigo-500/30 p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl text-xs lg:text-sm text-indigo-100">
+                                Para mantermos sua fidelidade, consigo aplicar um **desconto de 25% nas próximas 3
+                                faturas** ou um upgrade imediato de velocidade sem custo extra. Qual fica melhor para
+                                você?
+                            </div>
+                            <div
+                                class="bg-slate-800 p-2 lg:p-3 rounded-tl-xl rounded-br-xl rounded-bl-xl max-w-[90%] self-end text-xs lg:text-sm ml-auto text-slate-200">
+                                O desconto de 25% me ajuda bastante. Pode aplicar.
+                            </div>
+                            <div class="flex gap-2 items-center text-[9px] font-mono text-green-400">
+                                <iconify-icon icon="solar:check-circle-bold-duotone"></iconify-icon> Cancelamento
+                                revertido. Aditivo gerado no ERP.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sessão 5: O Dashboard do Dono (Laptop Mockup) -->
+    <section id="dashboard" class="pt-32 pb-20 lg:py-32 bg-[#F8FAFC] relative overflow-hidden border-t border-gray-100">
+        <div
+            class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,87,255,0.05),transparent_70%)] pointer-events-none">
+        </div>
+        <div class="glow-point-light w-[900px] h-[900px] -bottom-1/2 -right-1/4 opacity-15"></div>
+        <div class="glow-point-light w-[600px] h-[600px] -top-1/4 -left-1/4 opacity-10"></div>
+
+        <div
+            class="max-w-7xl mx-auto px-6 relative z-10 w-full grid grid-cols-1 xl:grid-cols-12 gap-12 lg:gap-16 items-center">
+
+            <!-- Dashboard Header (Esquerda no Desktop) -->
+            <div
+                class="dashboard-header gsap-reveal xl:col-span-4 flex flex-col justify-center text-center xl:text-left">
+                <div class="w-full">
+                    <span class="text-xs font-mono uppercase tracking-[0.25em] text-brandAccent block mb-4">04 — A Visão
+                        do Dono</span>
+                    <h2
+                        class="font-display text-2xl md:text-4xl lg:text-5xl font-black text-primary tracking-tight mb-3 md:mb-6">
+                        O painel <br class="hidden xl:block">de comando <br>
+                        <span class="text-gray-400">da sua nova operação.</span>
+                    </h2>
+                </div>
+                <div class="w-full">
+                    <p class="text-sm md:text-lg text-gray-500 font-medium leading-relaxed">
+                        Enquanto os agentes resolvem tudo nos bastidores, você tem a visão macro e estratégica.
+                        Acompanhe o crescimento e decida o próximo passo.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Unified Responsive Mockup (Direita no Desktop) -->
+            <!-- Unified Responsive Mockup (Direita no Desktop) -->
+            <div
+                class="gsap-reveal dashboard-mockup xl:col-span-8 relative w-full max-w-[92vw] md:max-w-5xl mx-auto xl:ml-auto xl:scale-[0.85] xl:origin-right mt-16 md:mt-20 xl:mt-0">
+
+                <!-- Solid Metallic Laptop Chassis (Wraps Everything) -->
+                <!-- Mobile: iPhone Case | Desktop: MacBook Lid -->
+                <div
+                    class="relative w-full max-w-[340px] md:max-w-none mx-auto bg-gradient-to-b from-[#3a3b3e] via-[#2a2b2e] to-[#1a1b1e] md:bg-none md:bg-gradient-to-b md:from-[#3a3b3e] md:via-[#2a2b2e] md:to-[#1a1b1e] rounded-[48px] md:rounded-[28px] p-[6px] pb-[6px] md:p-[6px] md:pb-[24px] shadow-[0_40px_100px_rgba(0,0,0,0.6),_inset_0_2px_4px_rgba(255,255,255,0.1)] border border-[#4a4b4e] md:border-[#4a4b4e] flex flex-col items-center">
+
+                    <!-- Hardware buttons for iPhone (Hidden on Desktop) -->
+                    <div class="md:hidden absolute top-32 -left-[1px] w-[3px] h-10 bg-[#4a4b4e] rounded-l-md shadow-md">
+                    </div>
+                    <div class="md:hidden absolute top-48 -left-[1px] w-[3px] h-16 bg-[#4a4b4e] rounded-l-md shadow-md">
+                    </div>
+                    <div class="md:hidden absolute top-68 -left-[1px] w-[3px] h-16 bg-[#4a4b4e] rounded-l-md shadow-md">
+                    </div>
+                    <div
+                        class="md:hidden absolute top-48 -right-[1px] w-[3px] h-20 bg-[#4a4b4e] rounded-r-md shadow-md">
+                    </div>
+
+                    <!-- Physical Screen Area -->
+                    <div
+                        class="relative bg-[#1c1d1e] w-full rounded-[42px] md:rounded-[22px] border-[1px] border-[#3a3b3c] p-[1px] z-20 aspect-[9/19] md:aspect-[16/10] overflow-hidden flex flex-col bg-gradient-to-br from-[#2c2d2e] via-[#1c1d1e] to-[#0a0a0a] shadow-[0_4px_10px_rgba(0,0,0,0.5)]">
+
+                        <!-- Hardware Bezel Layer -->
+                        <div
+                            class="absolute inset-0 border-[8px] md:border-[12px] md:border-b-[24px] border-black rounded-[40px] md:rounded-[20px] pointer-events-none z-10 flex items-end justify-center pb-1 md:pb-2">
+                            <span
+                                class="hidden md:block text-[7px] md:text-[9px] font-bold text-white/40 tracking-[0.25em] uppercase">MacBook
+                                Pro</span>
+                            <!-- iPhone Home Indicator -->
+                            <div class="md:hidden mb-1.5 w-24 h-[3px] bg-white/30 rounded-full"></div>
+                        </div>
+
+                        <!-- MacBook Pro Notch (Desktop) -->
+                        <div
+                            class="hidden md:flex absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-6 bg-black rounded-b-[12px] z-30 justify-center items-center gap-3">
+                            <div class="w-1.5 h-1.5 bg-[#1a1a1a] rounded-full border border-gray-800 shadow-inner">
+                            </div>
+                            <div
+                                class="w-2 h-2 bg-[#0a0a0a] rounded-full border border-white/5 flex items-center justify-center">
+                                <div class="w-0.5 h-0.5 bg-blue-500/10 rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Island iPhone Notch (Mobile) -->
+                        <div
+                            class="flex md:hidden absolute top-[12px] left-1/2 -translate-x-1/2 w-[90px] h-[26px] bg-black rounded-[20px] z-30 justify-center items-center gap-2 shadow-[0_0_10px_rgba(0,0,0,0.5)]">
+                            <div
+                                class="w-2 h-2 bg-[#0a0a0a] rounded-full border border-white/5 flex items-center justify-center ml-1">
+                                <div class="w-0.5 h-0.5 bg-blue-500/10 rounded-full"></div>
+                            </div>
+                            <div class="w-1.5 h-1.5 bg-[#1a1a1a] rounded-full border border-gray-800 shadow-inner mr-8">
+                            </div>
+                        </div>
+
+                        <!-- Dashboard Screen UI -->
+                        <div
+                            class="flex-1 min-h-0 w-full bg-surface rounded-[12px] md:rounded-[8px] overflow-hidden flex flex-col mt-6 md:mt-0 relative pt-2 md:pt-0 z-0 border-[0.5px] border-white/10 m-[6px] md:m-[12px] md:mb-[24px] h-[calc(100%-12px)] md:h-[calc(100%-36px)]">
+
+                            <!-- Screen Glass Reflection overlay -->
+                            <div
+                                class="absolute inset-0 pointer-events-none z-50 bg-gradient-to-tr from-transparent via-white/5 to-white/10 opacity-30">
+                            </div>
+
+                            <!-- Dashboard Navbar -->
+                            <div
+                                class="h-14 md:h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 md:px-8 shrink-0 z-20">
+                                <div class="flex items-center gap-2">
+                                    <iconify-icon icon="solar:widget-add-bold-duotone"
+                                        class="text-xl text-brandAccent"></iconify-icon>
+                                    <span
+                                        class="font-display font-bold text-[10px] md:text-sm uppercase tracking-widest text-primary">DASHBOARD
+                                        ESTRATÉGICO</span>
+                                </div>
+                                <div class="flex items-center gap-4 text-gray-400">
+                                    <span class="text-[10px] font-mono hidden md:inline">
+                                        <span
+                                            class="w-1.5 h-1.5 bg-green-500 rounded-full inline-block mr-1 animate-pulse"></span>
+                                        Monitoramento
+                                    </span>
+                                    <div
+                                        class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gray-100 flex items-center justify-center border border-gray-200 shadow-inner">
+                                        <iconify-icon icon="solar:user-bold" class="text-xs md:text-sm"></iconify-icon>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Integrated Metrics Content -->
+                            <div class="flex-1 p-4 md:p-6 overflow-y-auto bg-surface">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-full content-start">
+                                    <!-- Receita Gerada -->
+                                    <div
+                                        class="bg-white rounded-[16px] p-4 md:p-5 border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-300 group min-h-[140px]">
+                                        <div class="flex justify-between items-start">
+                                            <div
+                                                class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-green-50 text-green-600 flex items-center justify-center transition-colors group-hover:bg-green-600 group-hover:text-white">
+                                                <iconify-icon icon="solar:wallet-money-bold-duotone"
+                                                    class="text-lg md:text-xl"></iconify-icon>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-mono font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">+15%</span>
+                                        </div>
+                                        <div>
+                                            <h4
+                                                class="text-[9px] md:text-[11px] font-mono font-bold text-gray-400 uppercase tracking-widest mt-3">
+                                                Receita Gerada</h4>
+                                            <div class="flex items-baseline gap-1 mt-1">
+                                                <span
+                                                    class="font-display font-black text-lg md:text-2xl text-primary">R$
+                                                    142.850</span>
+                                                <span
+                                                    class="text-[9px] md:text-[11px] font-bold text-gray-400 mb-0.5">/mês</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Atendimentos Realizados -->
+                                    <div
+                                        class="bg-white rounded-[16px] p-4 md:p-5 border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-300 group min-h-[140px]">
+                                        <div class="flex justify-between items-start">
+                                            <div
+                                                class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center transition-colors group-hover:bg-blue-600 group-hover:text-white">
+                                                <iconify-icon icon="solar:chat-square-check-bold-duotone"
+                                                    class="text-lg md:text-xl"></iconify-icon>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-mono font-bold text-blue-500 bg-blue-50 px-2 py-0.5 rounded-full">94%
+                                                IA</span>
+                                        </div>
+                                        <div>
+                                            <h4
+                                                class="text-[9px] md:text-[11px] font-mono font-bold text-gray-400 uppercase tracking-widest mt-3">
+                                                Atendimentos</h4>
+                                            <div class="flex items-baseline gap-1 mt-1">
+                                                <span
+                                                    class="font-display font-black text-lg md:text-2xl text-primary">4.821</span>
+                                                <span
+                                                    class="text-[9px] md:text-[11px] font-bold text-gray-400 mb-0.5">atend.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Negociações em Andamento -->
+                                    <div
+                                        class="bg-white rounded-[16px] p-4 md:p-5 border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-300 group min-h-[140px]">
+                                        <div class="flex justify-between items-start">
+                                            <div
+                                                class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center transition-colors group-hover:bg-orange-600 group-hover:text-white">
+                                                <iconify-icon icon="solar:graph-up-bold-duotone"
+                                                    class="text-lg md:text-xl"></iconify-icon>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-mono font-bold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">Vendas</span>
+                                        </div>
+                                        <div>
+                                            <h4
+                                                class="text-[9px] md:text-[11px] font-mono font-bold text-gray-400 uppercase tracking-widest mt-3">
+                                                Em Aberto</h4>
+                                            <div class="flex items-baseline gap-1 mt-1">
+                                                <span
+                                                    class="font-display font-black text-lg md:text-2xl text-primary">86</span>
+                                                <span
+                                                    class="text-[9px] md:text-[11px] font-bold text-gray-400 mb-0.5">leads</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Negociações Fechadas -->
+                                    <div
+                                        class="bg-white rounded-[16px] p-4 md:p-5 border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-all duration-300 group min-h-[140px]">
+                                        <div class="flex justify-between items-start">
+                                            <div
+                                                class="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-green-50 text-green-600 flex items-center justify-center transition-colors group-hover:bg-green-600 group-hover:text-white">
+                                                <iconify-icon icon="solar:check-circle-bold-duotone"
+                                                    class="text-lg md:text-xl"></iconify-icon>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-mono font-bold text-green-500 bg-green-50 px-2 py-0.5 rounded-full">Fechado</span>
+                                        </div>
+                                        <div>
+                                            <h4
+                                                class="text-[9px] md:text-[11px] font-mono font-bold text-gray-400 uppercase tracking-widest mt-3">
+                                                Ganhos</h4>
+                                            <div class="flex items-baseline gap-1 mt-1">
+                                                <span
+                                                    class="font-display font-black text-lg md:text-2xl text-primary">142</span>
+                                                <span
+                                                    class="text-[9px] md:text-[11px] font-bold text-gray-400 mb-0.5">contratos</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- /Integrated Metrics Content -->
+                        </div> <!-- /Dashboard Screen UI -->
+                    </div> <!-- /MacBook Pro Physical Lid -->
+
+                    <!-- Trackpad Thumb Notch (Built into the solid base chassis padding - Hidden on Mobile view) -->
+                    <div
+                        class="hidden md:block absolute bottom-[8px] md:bottom-[10px] w-12 md:w-20 h-[4px] md:h-[6px] bg-[#1a1b1e] rounded-full shadow-[inset_0_1px_2px_rgba(0,0,0,0.8),_0_1px_0_rgba(255,255,255,0.1)] pointer-events-none">
+                    </div>
+
+                </div> <!-- /Solid Metallic Laptop Chassis -->
+
+                <!-- Full Laptop Base (Keyboard Deck Floor - Hidden on mobile view) -->
+                <div
+                    class="hidden md:flex relative w-[115%] md:w-[125%] left-1/2 -translate-x-1/2 h-[16px] md:h-[22px] bg-gradient-to-b from-[#a3a6a8] via-[#85888a] to-[#636566] rounded-b-[20px] md:rounded-b-[32px] shadow-[0_30px_50px_rgba(0,0,0,0.8),_inset_0_1px_1px_rgba(255,255,255,0.6)] border border-[#7a7d7f] border-t-[1px] border-t-[#ffffff] justify-center mt-[-6px] md:mt-[-10px] z-10 transition-all">
+                    <!-- Indentation for opening lid -->
+                    <div
+                        class="absolute top-0 w-32 md:w-48 h-[3px] md:h-[4px] bg-gradient-to-b from-[#5a5c5e] to-transparent rounded-b-[8px] opacity-90 shadow-[inset_0_1px_2px_rgba(0,0,0,0.4)]">
+                    </div>
+                </div>
+
+            </div> <!-- /Unified Mockup Container -->
+        </div> <!-- /max-w-7xl -->
+    </section>
+
+    <!-- Sessão Final / CTA (Dark Dramatic) -->
+    <section id="cta"
+        class="py-[150px] bg-[var(--bg-deep)] text-white relative flex flex-col justify-center overflow-hidden">
+        <div
+            class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black to-transparent pointer-events-none z-0">
+        </div>
+        <div class="grid-bg-dark absolute inset-0 z-0 opacity-30 pointer-events-none"></div>
+        <div class="noise-overlay"></div>
+        <div class="glow-point w-[800px] h-[800px] -bottom-1/4 -right-1/4 opacity-20"></div>
+        <div class="glow-point w-[600px] h-[600px] top-1/4 -left-1/4 opacity-15"></div>
+
+        <div class="cta-content max-w-4xl mx-auto px-6 relative z-10 text-center">
+            <span class="gsap-reveal text-xs font-mono uppercase tracking-[0.25em] text-gray-500 block mb-6">04 —
+                Decisão</span>
+
+            <h1
+                class="gsap-reveal text-3xl md:text-5xl lg:text-6xl font-black font-display tracking-tighter mb-8 text-white">
+                Instale a<br>Máquina.
+            </h1>
+
+            <p class="gsap-reveal text-lg md:text-xl text-gray-400 font-medium mb-12 max-w-2xl mx-auto leading-relaxed">
+                Sistemas lentos perdem faturamento diariamente. Agende um call sincero de alinhamento técnico e de
+                arquitetura com nossos engenheiros.
+            </p>
+
+            <div class="gsap-reveal flex flex-col sm:flex-row items-center justify-center gap-6">
+                <button class="btn-beam">
+                    <div class="btn-beam-bg btn-beam-bg-dark"></div>
+                    <div class="btn-beam-inner btn-beam-inner-brand">
+                        Agendar Arquitetura <iconify-icon icon="solar:arrow-right-bold" class="text-xl"></iconify-icon>
+                    </div>
+                </button>
+                <a href="#"
+                    class="text-sm font-mono font-bold text-gray-500 uppercase tracking-widest hover:text-white border-b border-transparent hover:border-white pb-1 transition-all">
+                    Dúvidas via WhatsApp
+                </a>
+            </div>
+
+            <div
+                class="gsap-reveal mt-20 pt-10 border-t border-white/10 flex justify-between items-center text-xs text-gray-600 font-mono">
+                <span>&copy; 2026 MÁQUINA.ISP. All rights reserved.</span>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-gray-300 transition-colors">Termos</a>
+                    <a href="#" class="hover:text-gray-300 transition-colors">Privacidade (LGPD)</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

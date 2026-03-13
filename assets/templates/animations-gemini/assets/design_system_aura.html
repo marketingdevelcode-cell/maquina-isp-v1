@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Máquina B2B - Provedor no Automático</title>
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        stonebg: '#EAEAE5',
+                        stonetext: '#1C1C1C',
+                        stonemuted: '#666666',
+                        stoneborder: '#D6D6D1',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #EAEAE5;
+            color: #1C1C1C;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Base Reveal Animation (Scroll triggered) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Blur Fade-In Animation for Hero Section (As requested) */
+        @keyframes blurFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0px);
+            }
+        }
+
+        .animate-blur-fade {
+            animation: blurFadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            /* Starts hidden */
+        }
+
+        /* Stagger Delays */
+        .delay-100 {
+            animation-delay: 0.1s;
+            transition-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+            transition-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+            transition-delay: 0.3s;
+        }
+
+        .delay-400 {
+            animation-delay: 0.4s;
+            transition-delay: 0.4s;
+        }
+
+        .delay-500 {
+            animation-delay: 0.5s;
+            transition-delay: 0.5s;
+        }
+
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .marquee-container {
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            border-top: 1px solid #D6D6D1;
+            border-bottom: 1px solid #D6D6D1;
+            background: #EAEAE5;
+        }
+
+        .marquee-content {
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-around;
+            min-width: 100%;
+            animation: marquee 30s linear infinite;
+        }
+
+        /* Structural Grid Elements */
+        .grid-card {
+            background: #FAFAF8;
+            border: 1px solid #D6D6D1;
+            transition: all 0.3s ease;
+        }
+
+        .grid-card:hover {
+            border-color: #1C1C1C;
+            box-shadow: 4px 4px 0px rgba(28, 28, 28, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Buttons */
+        .btn-solid {
+            background-color: #1C1C1C;
+            color: #EAEAE5;
+            transition: all 0.2s ease;
+        }
+
+        .btn-solid:hover {
+            background-color: #000000;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #1C1C1C;
+            border: 1px solid #1C1C1C;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline:hover {
+            background-color: #1C1C1C;
+            color: #EAEAE5;
+        }
+
+        /* Badges */
+        .mini-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            padding: 4px 10px;
+            border: 1px solid #D6D6D1;
+            background: #FAFAF8;
+            display: inline-block;
+            color: #1C1C1C;
+        }
+
+        /* FAQ */
+        .faq-item summary {
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Section Dividers Overlay */
+        .section-separator {
+            width: 100%;
+            height: 1px;
+            background: #D6D6D1;
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body class="selection:bg-stone-800 selection:text-white pb-0 flex flex-col min-h-screen relative">
+
+    <!-- Absolute Background Container for Vertical Grid Lines spanning entire height -->
+    <div
+        class="fixed inset-0 pointer-events-none grid grid-cols-1 md:grid-cols-12 gap-0 z-0 h-full w-full max-w-[1400px] mx-auto border-x border-stoneborder">
+        <div class="hidden md:block md:col-span-3 border-r border-stoneborder h-full"></div>
+        <div class="hidden md:block md:col-span-6 border-r border-stoneborder h-full"></div>
+        <div class="hidden md:block md:col-span-3 h-full"></div>
+    </div>
+
+    <!-- Content Wrapper ensuring it sits above the fixed grid lines -->
+    <div class="relative z-10 w-full max-w-[1400px] mx-auto bg-transparent">
+
+        <!-- Navigation -->
+        <header class="border-b border-stoneborder sticky top-0 bg-[#EAEAE5]/90 backdrop-blur z-50 animate-blur-fade">
+            <div class="flex justify-between items-center px-4 md:px-8 py-5">
+                <div class="flex items-center gap-6">
+                    <a href="#" class="font-bold tracking-tight text-xl flex items-center gap-2">
+                        <div class="w-2 h-6 bg-stonetext"></div>
+                        MÁQUINA<span class="text-stonemuted font-medium">.ISP</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8">
+                    <a class="text-xs font-medium tracking-widest uppercase hover:text-stonemuted transition-colors"
+                        href="#vazamento">O Problema</a>
+                    <a class="text-xs font-medium tracking-widest uppercase hover:text-stonemuted transition-colors"
+                        href="#agentes">Agentes</a>
+                    <a class="text-xs font-medium tracking-widest uppercase hover:text-stonemuted transition-colors"
+                        href="#diferenciais">Infra</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="btn-solid px-5 py-2 text-xs font-bold tracking-widest uppercase flex items-center gap-2">
+                        Diagnóstico <iconify-icon icon="solar:arrow-right-linear" class="text-lg"></iconify-icon>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- 1. Hero Section (Blur and Fade-In Requested by User) -->
+        <main
+            class="relative pt-32 pb-24 md:pt-40 md:pb-32 px-4 md:px-8 flex flex-col justify-center items-center text-center">
+
+            <div class="mb-8 animate-blur-fade delay-100">
+                <span class="mini-badge"><iconify-icon icon="solar:bolt-bold"
+                        class="inline align-middle mr-1"></iconify-icon> Operação Autônoma</span>
+            </div>
+
+            <h1
+                class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] mb-8 text-stonetext max-w-4xl">
+                <div class="animate-blur-fade delay-200">Seu provedor não</div>
+                <div class="animate-blur-fade delay-300">precisa de mais leads.</div>
+                <div class="animate-blur-fade delay-400">Precisa de uma Máquina.</div>
+            </h1>
+
+            <p
+                class="text-lg md:text-xl text-stonemuted mb-10 max-w-2xl mx-auto animate-blur-fade delay-500 font-medium">
+                Provedor no automático, do contato ao contrato. Uma operação completa com agentes de IA integrados
+                nativamente ao seu ERP e Helpdesk.
+            </p>
+
+            <div
+                class="flex flex-wrap justify-center gap-6 mb-12 font-mono text-xs tracking-widest text-stonemuted animate-blur-fade delay-500 uppercase">
+                <div class="flex items-center gap-2"><iconify-icon icon="solar:check-read-linear"
+                        class="text-stonetext text-lg"></iconify-icon> Atendimento</div>
+                <div class="flex items-center gap-2"><iconify-icon icon="solar:check-read-linear"
+                        class="text-stonetext text-lg"></iconify-icon> Cobrança</div>
+                <div class="flex items-center gap-2"><iconify-icon icon="solar:check-read-linear"
+                        class="text-stonetext text-lg"></iconify-icon> Prev. Churn</div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-blur-fade delay-500 w-full sm:w-auto">
+                <button
+                    class="btn-solid px-8 py-4 font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-3">
+                    Agendar Diagnóstico
+                    <iconify-icon icon="solar:arrow-right-linear" class="text-xl"></iconify-icon>
+                </button>
+            </div>
+            <p class="mt-6 font-mono text-xs text-stonemuted animate-blur-fade delay-500 uppercase tracking-widest">//
+                Sessão gratuita para mapear o vazamento</p>
+        </main>
+
+        <!-- Marquee Divider -->
+        <div class="marquee-container py-4 relative z-10 bg-stonebg">
+            <div class="marquee-content gap-12 items-center font-mono text-xs tracking-widest text-stonetext uppercase">
+                <span>Régua de Cobrança 100% Autônoma</span>
+                <iconify-icon icon="solar:asterisk-circle-linear" class="text-stonemuted"></iconify-icon>
+                <span>NPS e Abertura de OS via IA</span>
+                <iconify-icon icon="solar:asterisk-circle-linear" class="text-stonemuted"></iconify-icon>
+                <span>Detecção e Ação Anti-Churn</span>
+                <iconify-icon icon="solar:asterisk-circle-linear" class="text-stonemuted"></iconify-icon>
+                <span>Integração Nativa ERP/CRM</span>
+                <iconify-icon icon="solar:asterisk-circle-linear" class="text-stonemuted"></iconify-icon>
+                <!-- Duplicates -->
+                <span>Régua de Cobrança 100% Autônoma</span>
+                <iconify-icon icon="solar:asterisk-circle-linear" class="text-stonemuted"></iconify-icon>
+                <span>NPS e Abertura de OS via IA</span>
+                <iconify-icon icon="solar:asterisk-circle-linear" class="text-stonemuted"></iconify-icon>
+            </div>
+        </div>
+
+        <!-- 2. Diagnóstico da Dor -->
+        <section id="vazamento" class="py-24 md:py-32 px-4 md:px-8 relative bg-[#FAFAF8]">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal border border-stoneborder bg-[#EAEAE5] p-8">
+                    <span class="font-mono text-stonetext font-bold text-xs tracking-[0.2em] uppercase mb-4 block">[ O
+                        Vazamento ]</span>
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">Onde a sua operação está vazando
+                        caixa agora mesmo?</h2>
+                    <p class="text-lg text-stonemuted">O problema não é o seu time. O problema é depender de esforço
+                        humano para processos que deveriam ser instantâneos e infalíveis.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Cards -->
+                    <div class="grid-card p-8 reveal">
+                        <div
+                            class="w-12 h-12 bg-[#EAEAE5] border border-stoneborder flex items-center justify-center mb-6">
+                            <iconify-icon icon="solar:wallet-money-broken"
+                                class="text-2xl text-stonetext"></iconify-icon>
+                        </div>
+                        <h3 class="font-bold text-lg mb-3">Inadimplência</h3>
+                        <p class="text-sm text-stonemuted leading-relaxed">Faturas não enviadas no prazo correto ou
+                            perdidas nos canais errados, travando o caixa.</p>
+                    </div>
+
+                    <div class="grid-card p-8 reveal delay-100">
+                        <div
+                            class="w-12 h-12 bg-[#EAEAE5] border border-stoneborder flex items-center justify-center mb-6">
+                            <iconify-icon icon="solar:user-cross-broken" class="text-2xl text-stonetext"></iconify-icon>
+                        </div>
+                        <h3 class="font-bold text-lg mb-3">Tempo Perdido</h3>
+                        <p class="text-sm text-stonemuted leading-relaxed">Equipe técnica deslocada para clientes que
+                            esqueceram do agendamento ou não estavam casa.</p>
+                    </div>
+
+                    <div class="grid-card p-8 reveal delay-200">
+                        <div
+                            class="w-12 h-12 bg-[#EAEAE5] border border-stoneborder flex items-center justify-center mb-6">
+                            <iconify-icon icon="solar:graph-down-broken" class="text-2xl text-stonetext"></iconify-icon>
+                        </div>
+                        <h3 class="font-bold text-lg mb-3">Churn Evitável</h3>
+                        <p class="text-sm text-stonemuted leading-relaxed">Cancelamentos que poderiam ter sido
+                            revertidos se o sinal fosse detectado a tempo.</p>
+                    </div>
+
+                    <div class="grid-card p-8 reveal delay-300">
+                        <div
+                            class="w-12 h-12 bg-[#EAEAE5] border border-stoneborder flex items-center justify-center mb-6">
+                            <iconify-icon icon="solar:history-broken" class="text-2xl text-stonetext"></iconify-icon>
+                        </div>
+                        <h3 class="font-bold text-lg mb-3">Desbloqueio Lento</h3>
+                        <p class="text-sm text-stonemuted leading-relaxed">Demora na reativação em confiança, gerando
+                            irritação profunda no cliente.</p>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center reveal delay-400">
+                    <button
+                        class="btn-outline px-8 py-4 font-bold tracking-widest uppercase font-mono text-xs max-w-sm mx-auto">
+                        > Descobrir meu vazamento
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-separator"></div>
+
+        <!-- 3 & 4. Solução e Workflow -->
+        <section id="solucao" class="py-24 md:py-32 px-4 md:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-5 gap-16 items-center">
+                    <div class="md:col-span-3 reveal">
+                        <span class="font-mono font-bold text-xs tracking-widest uppercase mb-4 block">[ A Solução
+                            ]</span>
+                        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight mb-8 leading-tight">Muito além de um
+                            chatbot.<br><span class="text-stonemuted">Uma operação autônoma.</span></h2>
+                        <p class="text-lg text-stonemuted mb-8 leading-relaxed">
+                            Nós instalamos uma malha de agentes de IA com integrações profundas, operando com regras de
+                            negócio blindadas e rastreabilidade total via WhatsApp.
+                        </p>
+                        <ul class="space-y-6 font-mono text-sm border-l border-stoneborder pl-6">
+                            <li class="flex items-start gap-4">
+                                <span class="font-bold mt-1">01</span>
+                                <span class="text-stonemuted">Agentes concentradores em múltiplos departamentos.</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <span class="font-bold mt-1">02</span>
+                                <span class="text-stonemuted">Integração nativa real com ERP, Billing e Helpdesk.</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <span class="font-bold mt-1">03</span>
+                                <span class="text-stonemuted">Ação autônoma baseada nos eventos do seu sistema.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Visual Workflow -->
+                    <div class="md:col-span-2 grid-card p-8 reveal delay-200">
+                        <h3
+                            class="font-mono text-xs font-bold tracking-widest uppercase mb-8 border-b border-stoneborder pb-4">
+                            Do evento à resolução:</h3>
+
+                        <div
+                            class="relative pl-6 space-y-8 before:absolute before:inset-y-2 before:left-[7px] before:w-[1px] before:bg-stoneborder font-mono text-sm">
+                            <div class="relative">
+                                <div class="absolute -left-7 w-4 h-4 bg-[#EAEAE5] border border-stoneborder"></div>
+                                <h4 class="font-bold mb-1 uppercase tracking-wider">Passo 1: Entrada</h4>
+                                <p class="text-stonemuted">Gatilho disparado no ERP.</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-7 w-4 h-4 bg-[#EAEAE5] border border-stoneborder"></div>
+                                <h4 class="font-bold mb-1 uppercase tracking-wider">Passo 2: Execução</h4>
+                                <p class="text-stonemuted">Abordagem com contexto.</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-7 w-4 h-4 bg-stonetext border border-stonetext"></div>
+                                <h4 class="font-bold text-stonetext mb-1 uppercase tracking-wider">Passo 3: Integração
+                                </h4>
+                                <p class="text-stonemuted">ERP atualizado auto.</p>
+                            </div>
+                            <div class="relative opacity-50">
+                                <div class="absolute -left-7 w-4 h-4 bg-transparent border border-stoneborder"></div>
+                                <h4 class="font-bold mb-1 uppercase tracking-wider text-stonemuted">Passo 4: Exceção
+                                </h4>
+                                <p class="text-stonemuted">Escala para humano.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-separator"></div>
+
+        <!-- 5. Os 3 Agentes -->
+        <section id="agentes" class="py-24 md:py-32 px-4 md:px-8 bg-[#FAFAF8]">
+            <div class="max-w-6xl mx-auto">
+                <div
+                    class="mb-16 reveal border-b font-mono text-xs border-stoneborder pb-4 flex justify-between items-end">
+                    <div>
+                        <span class="tracking-widest font-bold uppercase text-stonemuted mb-2 block">[ O Esquadrão
+                            ]</span>
+                        <h2 class="font-sans text-3xl font-bold tracking-tight text-stonetext">O time que nunca dorme e
+                            nunca esquece.</h2>
+                    </div>
+                    <div class="hidden md:block">
+                        <span class="font-bold">STATUS: <span class="text-green-600">ONLINE</span></span>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- LIA -->
+                    <div class="grid-card p-8 reveal border-t-4 border-t-stonetext">
+                        <div class="flex justify-between items-start mb-8">
+                            <div>
+                                <h3 class="text-3xl font-bold mb-1">LIA</h3>
+                                <p class="font-mono text-xs text-stonemuted font-bold">SYS_FINANCE</p>
+                            </div>
+                            <iconify-icon icon="solar:wad-of-money-linear"
+                                class="text-4xl text-stonemuted"></iconify-icon>
+                        </div>
+                        <p class="text-stonemuted text-sm leading-relaxed mb-8 flex-grow">
+                            Régua de cobrança, emite 2ª via PIX e renegocia débitos. Mestra do desbloqueio em confiança
+                            com leitura de comprovantes e validação de elegibilidade.
+                        </p>
+                        <div class="pt-4 border-t border-stoneborder">
+                            <span
+                                class="font-mono font-bold text-[10px] bg-[#EAEAE5] border border-stoneborder px-2 py-1 uppercase">Recuperação
+                                de Caixa</span>
+                        </div>
+                    </div>
+
+                    <!-- GABI -->
+                    <div class="grid-card p-8 reveal delay-100 border-t-4 border-t-stonetext">
+                        <div class="flex justify-between items-start mb-8">
+                            <div>
+                                <h3 class="text-3xl font-bold mb-1">GABI</h3>
+                                <p class="font-mono text-xs text-stonemuted font-bold">SYS_QUALITY</p>
+                            </div>
+                            <iconify-icon icon="solar:star-fall-linear" class="text-4xl text-stonemuted"></iconify-icon>
+                        </div>
+                        <p class="text-stonemuted text-sm leading-relaxed mb-8 flex-grow">
+                            Atua após o fechamento de O.S. com timer de contexto (15s). Afere NPS apenas após feedbacks
+                            positivos; reabre imediatamente em caso de insatisfação.
+                        </p>
+                        <div class="pt-4 border-t border-stoneborder">
+                            <span
+                                class="font-mono font-bold text-[10px] bg-[#EAEAE5] border border-stoneborder px-2 py-1 uppercase">Blindagem
+                                de NPS</span>
+                        </div>
+                    </div>
+
+                    <!-- NOAH -->
+                    <div class="grid-card p-8 reveal delay-200 border-t-4 border-t-stonetext">
+                        <div class="flex justify-between items-start mb-8">
+                            <div>
+                                <h3 class="text-3xl font-bold mb-1">NOAH</h3>
+                                <p class="font-mono text-xs text-stonemuted font-bold">SYS_RETENTION</p>
+                            </div>
+                            <iconify-icon icon="solar:shield-warning-linear"
+                                class="text-4xl text-stonemuted"></iconify-icon>
+                        </div>
+                        <p class="text-stonemuted text-sm leading-relaxed mb-8 flex-grow">
+                            Faz análise do ranking diário de risco. Aborda agressivamente clientes propensos ao
+                            cancelamento, identifica a causa e retém antes de virar churn.
+                        </p>
+                        <div class="pt-4 border-t border-stoneborder">
+                            <span
+                                class="font-mono font-bold text-[10px] bg-[#EAEAE5] border border-stoneborder px-2 py-1 uppercase">Anti-Churn
+                                Proativo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center reveal delay-300">
+                    <button
+                        class="btn-solid px-10 py-5 font-bold tracking-widest uppercase font-mono text-xs max-w-sm mx-auto shadow-xl">
+                        Subir os Agentes na Operação
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6 & 8. Diferenciais vs Robô -->
+        <section id="diferenciais"
+            class="py-24 md:py-32 border-y border-stoneborder relative overflow-hidden bg-[#EAEAE5]">
+            <div class="max-w-6xl mx-auto px-4 md:px-8 relative z-10">
+                <div class="flex flex-col lg:flex-row gap-16 items-center">
+                    <div class="flex-1 reveal">
+                        <span
+                            class="font-mono font-bold text-xs tracking-[0.2em] uppercase mb-4 block border-b border-stoneborder pb-2 inline-block">[
+                            Infraestrutura ]</span>
+                        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">A diferença trágica
+                            entre um "Robô" e uma Máquina.</h2>
+                        <p class="text-stonemuted text-lg mb-8">
+                            Enquanto o mercado vende menus limitados ("Digite 1"), nós dominamos a conectividade
+                            bidirecional e governança rígida dos seus dados.
+                        </p>
+                        <ul class="space-y-4 font-mono text-sm">
+                            <li class="flex items-center gap-3"><iconify-icon icon="solar:lock-keyhole-linear"
+                                    class="text-lg"></iconify-icon> Prompts fechados (Zero Alucinação).</li>
+                            <li class="flex items-center gap-3"><iconify-icon icon="solar:database-linear"
+                                    class="text-lg"></iconify-icon> Rastreabilidade absoluta no ERP.</li>
+                            <li class="flex items-center gap-3"><iconify-icon icon="solar:shield-check-linear"
+                                    class="text-lg"></iconify-icon> Regras cruciais antes de liberar banda.</li>
+                        </ul>
+                    </div>
+
+                    <div class="flex-1 reveal delay-200 w-full">
+                        <div class="grid-card p-4 flex flex-col gap-4">
+                            <!-- Bad example -->
+                            <div class="p-6 border border-[#ffcccc] bg-[#fff5f5] flex items-start gap-4">
+                                <iconify-icon icon="solar:close-circle-linear"
+                                    class="text-2xl mt-1 shrink-0 text-red-600"></iconify-icon>
+                                <div>
+                                    <p class="font-mono font-bold text-xs uppercase text-red-600 mb-1">Bot Comum</p>
+                                    <p class="text-sm text-stonemuted">Menus engessados. Cliente abandona no meio.
+                                        Totalmente desconectado do faturamento real.</p>
+                                </div>
+                            </div>
+                            <!-- Good example -->
+                            <div
+                                class="p-6 border border-stoneborder bg-white flex items-start gap-4 relative overflow-hidden shadow-sm">
+                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-stonetext"></div>
+                                <iconify-icon icon="solar:check-circle-bold"
+                                    class="text-2xl mt-1 shrink-0 text-stonetext"></iconify-icon>
+                                <div>
+                                    <p class="font-mono font-bold text-xs uppercase text-stonetext mb-1">Agentes
+                                        Concentradores</p>
+                                    <p class="text-sm text-stonemuted">Contexto ativo. A inteligência interpela primeiro
+                                        baseada em dados e fecha processos em linguagem natural.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7 & 9. Implementação e Qualificação -->
+        <section class="py-24 md:py-32 border-b border-stoneborder bg-[#FAFAF8] px-4 md:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-20">
+
+                    <!-- Setup -->
+                    <div class="reveal">
+                        <span
+                            class="font-mono text-stonemuted font-bold text-xs tracking-[0.2em] uppercase mb-4 block">[
+                            Deploy ]</span>
+                        <h2 class="text-3xl font-bold tracking-tight mb-4">Setup asséptico. Sem dor de cabeça pro T.I.
+                        </h2>
+                        <p class="text-stonemuted text-sm mb-10 leading-relaxed">Metodologia estruturada em blocos. Sem
+                            "quebrar" regras que já funcionam no ERP hoje.</p>
+
+                        <div
+                            class="space-y-6 relative before:absolute before:inset-y-4 before:left-[19px] before:w-[1px] before:bg-stoneborder font-mono">
+                            <div class="flex items-start gap-6 relative z-10">
+                                <div
+                                    class="w-10 h-10 border border-stoneborder bg-[#EAEAE5] flex items-center justify-center font-bold text-sm shrink-0">
+                                    01</div>
+                                <div class="pt-2 bg-[#FAFAF8] pr-4">
+                                    <h4 class="font-bold text-sm mb-1">Mapeamento</h4>
+                                    <p class="text-xs text-stonemuted">Acesso a endpoints e arquitetura API.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-6 relative z-10">
+                                <div
+                                    class="w-10 h-10 border border-stoneborder bg-[#EAEAE5] flex items-center justify-center font-bold text-sm shrink-0">
+                                    02</div>
+                                <div class="pt-2 bg-[#FAFAF8] pr-4">
+                                    <h4 class="font-bold text-sm mb-1">Testes Shadow</h4>
+                                    <p class="text-xs text-stonemuted">Auditoria de regras sem cliente real.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-6 relative z-10">
+                                <div
+                                    class="w-10 h-10 border border-stonetext bg-stonetext text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-md">
+                                    03</div>
+                                <div class="pt-2 bg-[#FAFAF8] pr-4">
+                                    <h4 class="font-bold text-sm mb-1">Virada Live</h4>
+                                    <p class="text-xs text-stonemuted">Baixo tráfego, acompanhamento ativo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Qualificacao -->
+                    <div class="grid-card p-10 reveal delay-200 flex items-center justify-center text-center">
+                        <div>
+                            <iconify-icon icon="solar:tuning-square-2-linear"
+                                class="text-4xl text-stonemuted mb-6"></iconify-icon>
+                            <h2 class="text-2xl font-bold tracking-tight mb-4">Critérios Base.</h2>
+                            <p class="text-sm text-stonemuted mb-8 max-w-sm mx-auto">Para extrair ROI máximo, exigimos
+                                ambiente ERP padronizado e ISPs em fase de alta escalabilidade.</p>
+
+                            <div
+                                class="text-left font-mono text-xs inline-block max-w-sm mx-auto border-t border-stoneborder pt-6">
+                                <div class="mb-5">
+                                    <span class="uppercase font-bold block mb-1">>> Fit:</span>
+                                    <span class="text-stonemuted">Provedores grandes, alto ticket de chamados mensais,
+                                        ERP sólido.</span>
+                                </div>
+                                <div>
+                                    <span class="text-red-600 uppercase font-bold block mb-1">>> No-Fit:</span>
+                                    <span class="text-stonemuted">Operadores de excel, provedores genéricos buscando bot
+                                        barato.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10, 11 & 12. FAQ, Provas, CTA Final -->
+        <section class="py-24 md:py-32 px-4 md:px-8 bg-[#EAEAE5]">
+            <div class="max-w-4xl mx-auto">
+
+                <!-- Provas Infrastructure -->
+                <div class="text-center mb-24 reveal">
+                    <span class="font-mono font-bold text-xs uppercase tracking-widest text-stonemuted block mb-4">[ SLA
+                        Tier 1 ]</span>
+                    <div
+                        class="flex flex-wrap justify-center gap-4 mt-6 font-mono text-xs uppercase font-bold text-stonetext">
+                        <span class="border border-stoneborder bg-[#FAFAF8] py-2 px-4 flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-green-500"></div> 99.9% Uptime
+                        </span>
+                        <span
+                            class="border border-stoneborder bg-[#FAFAF8] py-2 px-4 flex items-center gap-2"><iconify-icon
+                                icon="solar:shield-keyhole-linear"></iconify-icon> WABA Oficial</span>
+                        <span
+                            class="border border-stoneborder bg-[#FAFAF8] py-2 px-4 flex items-center gap-2"><iconify-icon
+                                icon="solar:lock-password-linear"></iconify-icon> LGPD Shield</span>
+                    </div>
+                </div>
+
+                <!-- FAQ -->
+                <div class="mb-32 reveal delay-100">
+                    <h2 class="text-3xl font-bold mb-10 text-center">Terminal FAQ.<br><span
+                            class="text-stonemuted text-xl font-normal">Sanando paranoias técnicas.</span></h2>
+
+                    <div class="space-y-4 border-y border-stoneborder py-6 bg-[#FAFAF8] px-6">
+                        <details class="faq-item group p-4 border-b border-stoneborder transition-colors">
+                            <summary class="font-bold text-lg flex items-center justify-between outline-none">
+                                Vocês integram com o meu atual ERP/CRM?
+                                <iconify-icon icon="solar:alt-arrow-down-linear"
+                                    class="text-stonemuted group-open:rotate-180 transition-transform"></iconify-icon>
+                            </summary>
+                            <p class="text-stonemuted mt-4 text-sm leading-relaxed pr-8">Sim. Possuímos documentação
+                                robusta via API para os maiores players do mercado de ISP, garantindo leitura e gravação
+                                segura dos dados operacionais.</p>
+                        </details>
+
+                        <details class="faq-item group p-4 border-b border-stoneborder transition-colors">
+                            <summary class="font-bold text-lg flex items-center justify-between outline-none">
+                                E se a Meta banir o meu WhatsApp?
+                                <iconify-icon icon="solar:alt-arrow-down-linear"
+                                    class="text-stonemuted group-open:rotate-180 transition-transform"></iconify-icon>
+                            </summary>
+                            <p class="text-stonemuted mt-4 text-sm leading-relaxed pr-8">Utilizamos a API Oficial
+                                (WABA), seguindo políticas da Meta. Riscos de banimento são praticamente mitigados na
+                                nossa arquitetura.</p>
+                        </details>
+
+                        <details class="faq-item group p-4 border-b border-stoneborder transition-colors">
+                            <summary class="font-bold text-lg flex items-center justify-between outline-none">
+                                O agente substitui totalmente meu time humano?
+                                <iconify-icon icon="solar:alt-arrow-down-linear"
+                                    class="text-stonemuted group-open:rotate-180 transition-transform"></iconify-icon>
+                            </summary>
+                            <p class="text-stonemuted mt-4 text-sm leading-relaxed pr-8">Não. A máquina atua na triagem
+                                (Tier 1/2) e cobrança. Seu time sobe na escala abstrata, focando no relacionamento (Tier
+                                3).</p>
+                        </details>
+
+                        <details class="faq-item group p-4 transition-colors">
+                            <summary class="font-bold text-lg flex items-center justify-between outline-none">
+                                Os dados LGPD dos clientes estão protegidos?
+                                <iconify-icon icon="solar:alt-arrow-down-linear"
+                                    class="text-stonemuted group-open:rotate-180 transition-transform"></iconify-icon>
+                            </summary>
+                            <p class="text-stonemuted mt-4 text-sm leading-relaxed pr-8">Acesso anonimizado aos modelos.
+                                Nunca haverá treinamento de IA pública utilizando a base do seu provedor.</p>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- CTA Final -->
+                <div class="grid-card p-12 md:p-16 text-center reveal delay-200">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">Hora de Plugar a Máquina.</h2>
+                    <p class="text-stonemuted text-lg mb-12 max-w-xl mx-auto">Mapearemos 3 pontos cegos na sua operação
+                        hoje. Saia do diagnóstico sabendo exatamente quanto LIA, GABI e NOAH vão devolver ao caixa.</p>
+                    <button
+                        class="btn-solid px-10 py-5 font-bold text-sm uppercase tracking-widest font-mono w-full md:w-auto shadow-lg">
+                        > Requisitar Mapa
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-stoneborder py-8 text-center bg-[#EAEAE5]">
+            <p class="font-mono font-bold text-[10px] text-stonemuted uppercase tracking-[0.2em] px-2">SYST_MÁQUINA ISP
+                © 2026 // HIGH_PERFORMANCE_B2B</p>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll reveal observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+
+</html>
