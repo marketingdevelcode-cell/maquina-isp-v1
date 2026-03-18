@@ -12,10 +12,17 @@
         }
         requestAnimationFrame(raf);
 
-        // Navbar blur behavior on scroll
+        // Navbar behavior on scroll (Blur + Hide/Show integrated with Lenis)
+        let lastScrollY = 0;
+        let isMenuOpen = false;
         const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
+
+        // IMPROVED: Use Lenis scroll for all navbar logic
+        lenis.on('scroll', ({ scroll, velocity, direction }) => {
+            const currentScrollY = scroll;
+            
+            // 1. Handle background blur/shadow (Fixed threshold)
+            if (currentScrollY > 60) {
                 navbar.classList.add('shadow-md');
                 navbar.classList.replace('bg-white/40', 'bg-white/70');
                 navbar.classList.replace('backdrop-blur-md', 'backdrop-blur-xl');
@@ -24,6 +31,19 @@
                 navbar.classList.replace('bg-white/70', 'bg-white/40');
                 navbar.classList.replace('backdrop-blur-xl', 'backdrop-blur-md');
             }
+
+            // 2. SMART HIDE: Only hide if NOT at the top AND menu is NOT open
+            if (!isMenuOpen) {
+                if (direction === 1 && currentScrollY > 200) {
+                    // Scrolling down (direction 1) and passed threshold
+                    navbar.classList.add('nav-hidden');
+                } else if (direction === -1 || currentScrollY < 50) {
+                    // Scrolling up (direction -1) OR at the very top
+                    navbar.classList.remove('nav-hidden');
+                }
+            }
+
+            lastScrollY = currentScrollY;
         });
 
         // Trigger navbar load animation on start
@@ -125,53 +145,8 @@
         });
 
         // ==========================================
-        // Sessão 4/5: The Pinned Scroll Journey (Apple-Style)
+        // Sessão 4/5: The Pinned Scroll Journey (Removed - Section is now static)
         // ==========================================
-
-        let journeyTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#produto",
-                start: "top top", // Quando o topo da div produto chegar no topo da tela
-                end: "+=4000", // Rola 4000px antes de desgrudar
-                scrub: 1, // Suavidade do amarrilho ao scroll
-                pin: true, // Fixa a tela!
-                anticipatePin: 1
-            }
-        });
-
-        // Intro (aparecer state 1)
-        journeyTl.fromTo("#text-step-1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1 })
-            .fromTo("#mockup-step-1", { opacity: 0, y: 50, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 1 }, "<");
-
-        // Transição State 1 -> State 2
-        journeyTl.to("#text-step-1", { opacity: 0, y: -30, duration: 1 })
-            .to("#mockup-step-1", { opacity: 0, scale: 0.9, duration: 1 }, "<")
-            .to("#backing-plate-1", { rotation: -6, x: -10, duration: 1 }, "<") // Anima o fundo
-
-            .to("#text-step-2", { opacity: 1, y: 0, duration: 1 }, "-=0.2")
-            .to("#mockup-step-2", { opacity: 1, y: 0, scale: 1, duration: 1 }, "<")
-            .fromTo(".animate-spin-slow", { rotation: 0 }, { rotation: 360, duration: 2, ease: "none" }, "<"); // Spin gear
-
-        // Pequena pausa (Scroll delay virtual)
-        journeyTl.to({}, { duration: 0.5 });
-
-        // Transição State 2 -> State 3
-        journeyTl.to("#text-step-2", { opacity: 0, y: -30, duration: 1 })
-            .to("#mockup-step-2", { opacity: 0, scale: 0.9, duration: 1 }, "<")
-            .to("#backing-plate-2", { rotation: 6, x: 10, duration: 1 }, "<") // Anima o 2o fundo
-
-            .to("#text-step-3", { opacity: 1, y: 0, duration: 1 }, "-=0.2")
-            .to("#mockup-step-3", { opacity: 1, y: 0, scale: 1, duration: 1 }, "<");
-
-        // Transição State 3 -> State 4
-        journeyTl.to("#text-step-3", { opacity: 0, y: -30, duration: 1 })
-            .to("#mockup-step-3", { opacity: 0, scale: 0.9, duration: 1 }, "<")
-
-            .to("#text-step-4", { opacity: 1, y: 0, duration: 1 }, "-=0.2")
-            .to("#mockup-step-4", { opacity: 1, y: 0, scale: 1, duration: 1 }, "<");
-
-        // Pausa final antes de soltar o pino
-        journeyTl.to({}, { duration: 1 });
 
         // ==========================================
         // Sessão Dashboard do Dono
@@ -242,13 +217,12 @@
 
         // Navbar Toggle Script
         const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close'); // Header inside menu
         const mobileMenu = document.getElementById('mobile-menu');
         const line1 = document.getElementById('line1');
         const line2 = document.getElementById('line2');
         const line3 = document.getElementById('line3');
         const mobileLinks = document.querySelectorAll('.mobile-menu-link');
-
-        let isMenuOpen = false;
 
         function toggleMenu() {
             isMenuOpen = !isMenuOpen;
@@ -257,7 +231,7 @@
                 mobileMenu.classList.add('active');
                 document.body.style.overflow = 'hidden'; // Prevent scroll
                 
-                // Animate Burger to Close
+                // Animate Burger to Close (Main Header)
                 line1.style.transform = 'translateY(8px) rotate(45deg)';
                 line2.style.opacity = '0';
                 line3.style.transform = 'translateY(-8px) rotate(-45deg)';
@@ -266,7 +240,7 @@
                 mobileMenu.classList.remove('active');
                 document.body.style.overflow = ''; // Restore scroll
                 
-                // Animate Close to Burger
+                // Animate Close to Burger (Main Header)
                 line1.style.transform = '';
                 line2.style.opacity = '1';
                 line3.style.transform = '';
@@ -275,6 +249,7 @@
         }
 
         menuToggle.addEventListener('click', toggleMenu);
+        if (menuClose) menuClose.addEventListener('click', toggleMenu); // Support X inside menu
 
         // Close menu on link click
         mobileLinks.forEach(link => {

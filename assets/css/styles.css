@@ -12,19 +12,20 @@
             position: relative;
         }
 
+        /* Sticky Header Transitions */
+        header {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, backdrop-filter 0.3s ease !important;
+            z-index: 99 !important; /* Ensure it's above everything */
+        }
+
+        header.nav-hidden {
+            transform: translateY(-100%);
+        }
+
         html {
             overflow-x: hidden;
             width: 100%;
             -webkit-overflow-scrolling: touch;
-        }
-
-        /* Scrollbar hide */
-        ::-webkit-scrollbar {
-            display: none;
-        }
-
-        * {
-            scrollbar-width: none;
         }
 
         /* Lenis setup */
@@ -44,6 +45,32 @@
         .lenis.lenis-stopped {
             overflow: hidden;
         }
+
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            z-index: 150 !important; /* Above and beyond everything */
+        }
+
+        #mobile-menu.active {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .mobile-menu-link {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #mobile-menu.active .mobile-menu-link {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #mobile-menu.active .mobile-menu-link:nth-child(1) { transition-delay: 0.1s; }
+        #mobile-menu.active .mobile-menu-link:nth-child(2) { transition-delay: 0.15s; }
+        #mobile-menu.active .mobile-menu-link:nth-child(3) { transition-delay: 0.2s; }
+        #mobile-menu.active .mobile-menu-link:nth-child(4) { transition-delay: 0.25s; }
 
         /* Prevent FOUC before GSAP initiates the reveal */
         .gsap-reveal {
@@ -373,4 +400,92 @@
 
         .marquee-wrapper {
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+
+        /* Tablets and Large Mobiles */
+        @media (max-width: 1024px) {
+            .hero-content h1 {
+                font-size: 3.5rem !important;
+            }
+            
+            section {
+                padding-top: 80px !important;
+                padding-bottom: 80px !important;
+            }
+        }
+
+        /* Mobile Devices */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem !important;
+                line-height: 1.15 !important;
+                letter-spacing: -0.025em !important; /* Equivalent to tracking-tight */
+            }
+
+            .hero-content p {
+                font-size: 0.95rem !important;
+                margin-bottom: 2rem !important;
+                line-height: 1.6 !important;
+            }
+
+            /* Global Section Headline Fixes for Mobile */
+            section h2 {
+                font-size: 1.75rem !important;
+                line-height: 1.2 !important;
+                letter-spacing: -0.01em !important;
+            }
+
+            section h3 {
+                font-size: 1.2rem !important;
+                line-height: 1.3 !important;
+            }
+
+            /* Adjust Hero specifically if needed differently */
+            .hero-content h1 {
+                font-size: 2rem !important;
+                line-height: 1.15 !important;
+                letter-spacing: -0.025em !important;
+            }
+
+            /* Fix potential overflows */
+            .max-w-7xl {
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media (max-width: 480px) {
+            section h2 {
+                font-size: 1.5rem !important;
+            }
+
+            .hero-content h1 {
+                font-size: 1.6rem !important;
+            }
+
+            .hero-content {
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+            }
+        }
+
+        /* Desktop and Large Screens */
+        @media (min-width: 1025px) {
+            .hero-content h1 {
+                font-size: 3.6rem !important; /* 20% reduction from 4.5rem */
+            }
+        }
+
+        /* Ultra-Wide and High Density Desktop */
+        @media (min-width: 1536px) {
+            .max-w-7xl {
+                max-width: 1440px !important;
+            }
+            
+            .hero-content h1 {
+                font-size: 4rem !important; /* 20% reduction from 5rem */
+            }
         }
