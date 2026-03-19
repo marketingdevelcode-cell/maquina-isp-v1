@@ -17,6 +17,6 @@ steps:
 - task: AzureStaticWebApp@0
   displayName: "Deploy para Azure Static Web App"
   inputs:
-    azure_static_web_apps_api_token: $(50fa0d26265bb919d82005ab41433da2ab261aef47166f8e7b7f7fccffbb868206-dfd87a11-134f-4707-8a9b-02e002469aac01e18300d5fe491e)
+    azure_static_web_apps_api_token: $(4fd2b4a5906939c9a64f8b81427f52b623c95d18ffdcfd01521e196559bf8fd106-859e3579-926a-4c9b-b2a9-d8274d17290101e18300d5fe491e)
     app_location: "/"          # onde está seu index.html
     output_location: "/"       # site já pronto (HTML puro)
