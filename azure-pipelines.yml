@@ -1,10 +1,13 @@
 trigger:
   branches:
     include:
-      - maquina-isp-v5   # ou sua branch do GitHub
+      - maquina-isp-v5
  
 pool:
   vmImage: ubuntu-latest
+ 
+variables:
+- group: azure-static-web-apps-delightful-bush-0d5fe491e-variable-group
  
 steps:
 - checkout: self
