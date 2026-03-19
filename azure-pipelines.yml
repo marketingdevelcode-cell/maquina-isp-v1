@@ -4,14 +4,19 @@
 # https://aka.ms/yaml
 
 trigger:
-- maquina-isp-v5
-
+  branches:
+    include:
+      - maquina-isp-v5   # ou nova-versão-3.0 se for essa sua branch principal
+ 
 pool:
   vmImage: ubuntu-latest
-
+ 
 steps:
-- task: ArchiveFiles@2
+- checkout: self
+ 
+- task: AzureStaticWebApp@0
+  displayName: "Deploy para Azure Static Web App"
   inputs:
-    rootFolderOrFile: '$(build.sourcesDirectory)'
-    includeRootFolder: false
-- task: PublishBuildArtifacts@1
+    azure_static_web_apps_api_token: $(50fa0d26265bb919d82005ab41433da2ab261aef47166f8e7b7f7fccffbb868206-dfd87a11-134f-4707-8a9b-02e002469aac01e18300d5fe491e)
+    app_location: "/"          # onde está seu index.html
+    output_location: "/"       # site já pronto (HTML puro)
