@@ -1,12 +1,7 @@
-# HTML
-# Archive your static HTML project and save it with the build record.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
   branches:
     include:
-      - maquina-isp-v5   # ou nova-versão-3.0 se for essa sua branch principal
+      - maquina-isp-v5   # ou sua branch do GitHub
  
 pool:
   vmImage: ubuntu-latest
@@ -17,6 +12,6 @@ steps:
 - task: AzureStaticWebApp@0
   displayName: "Deploy para Azure Static Web App"
   inputs:
-    azure_static_web_apps_api_token: $(4fd2b4a5906939c9a64f8b81427f52b623c95d18ffdcfd01521e196559bf8fd106-859e3579-926a-4c9b-b2a9-d8274d17290101e18300d5fe491e)
-    app_location: "/"          # onde está seu index.html
-    output_location: "/"       # site já pronto (HTML puro)
+    azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN)
+    app_location: "/"
+    output_location: "/"
